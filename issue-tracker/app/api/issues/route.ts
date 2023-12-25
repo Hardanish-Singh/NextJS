@@ -23,6 +23,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(newIssue, { status: 201 });
     } catch (err) {
         console.error("Error during creation of issue", err);
-        return NextResponse.json({ data: err, success: false });
+        return NextResponse.json(err, { status: 500 });
     }
 }
