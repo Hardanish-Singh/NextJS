@@ -1,6 +1,7 @@
 "use client";
 import { addIssue } from "@/actions/addIssue";
-import { TextFieldRoot, TextFieldInput, TextArea, Button, Text } from "@radix-ui/themes";
+import ErrorMessage from "@/components/ErrorMessage";
+import { TextFieldRoot, TextFieldInput, TextArea, Button } from "@radix-ui/themes";
 import React, { useState } from "react";
 
 const NewIssuePage = () => {
@@ -25,17 +26,9 @@ const NewIssuePage = () => {
                 <TextFieldRoot>
                     <TextFieldInput placeholder="Title" name="title"></TextFieldInput>
                 </TextFieldRoot>
-                {error.title && (
-                    <Text color="red" as="p">
-                        {error.title}
-                    </Text>
-                )}
+                <ErrorMessage>{error.title}</ErrorMessage>
                 <TextArea placeholder="Description" size="3" name="description"></TextArea>
-                {error.description && (
-                    <Text color="red" as="p">
-                        {error.description}
-                    </Text>
-                )}
+                <ErrorMessage>{error.description}</ErrorMessage>
                 <Button type="submit">Submit New Issue</Button>
             </form>
         </div>
