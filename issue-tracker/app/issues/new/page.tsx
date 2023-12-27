@@ -6,14 +6,14 @@ import { TextFieldRoot, TextFieldInput, TextArea, Button } from "@radix-ui/theme
 import React, { useState, useRef } from "react";
 
 const NewIssuePage = () => {
-    const [isSubmitting, SetIsSubmitting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState({
         title: "",
         description: "",
     });
     const ref = useRef<HTMLFormElement>(null);
     const clientAction = async (formData: FormData) => {
-        SetIsSubmitting(true);
+        setIsSubmitting(true);
         const result = await addIssue(formData);
         ref.current?.reset();
         if (result?.error) {
@@ -23,7 +23,7 @@ const NewIssuePage = () => {
                 description: result?.error?.description?._errors?.[0] ?? "",
             }));
         }
-        SetIsSubmitting(false);
+        setIsSubmitting(false);
     };
 
     return (
