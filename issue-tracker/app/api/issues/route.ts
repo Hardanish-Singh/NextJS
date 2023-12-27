@@ -11,7 +11,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validation = createIssueSchema.safeParse(body);
     if (!validation.success) {
-        return NextResponse.json(validation.error.format(), { status: 400 });
+        return NextResponse.json({
+            data: validation.error.format(),
+            status: 400,
+        });
     }
     try {
         const newIssue = await prisma.issue.create({
@@ -20,9 +23,15 @@ export async function POST(request: NextRequest) {
                 description: body.description,
             },
         });
-        return NextResponse.json(newIssue, { status: 201 });
+        return NextResponse.json({
+            data: newIssue,
+            status: 201,
+        });
     } catch (err) {
         console.error("Error during creation of issue", err);
-        return NextResponse.json(err, { status: 500 });
+        return NextResponse.json({
+            data: err,
+            status: 500,
+        });
     }
 }
