@@ -1,29 +1,18 @@
+"use client";
+import { addIssue } from "@/actions/addIssue";
 import { TextFieldRoot, TextFieldInput, TextArea, Button } from "@radix-ui/themes";
-import { redirect } from "next/navigation";
 import React from "react";
 
 const NewIssuePage = () => {
-    const addIssue = async (formData: FormData) => {
-        "use server";
-        const title = formData.get("title");
-        const description = formData.get("description");
-        try {
-            await fetch("http://localhost:3000/api/issues", {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                    "API-Key": process.env.DATA_API_KEY!,
-                },
-                body: JSON.stringify({ title, description }),
-            });
-            redirect("/issues");
-        } catch (error) {
-            console.log(error);
+    const clientAction = async (formData: FormData) => {
+        const result = await addIssue(formData);
+        if (result?.error) {
+            alert(result?.error);
         }
     };
 
     return (
-        <form className="max-w-xl space-y-3" action={addIssue}>
+        <form className="max-w-xl space-y-3" action={clientAction}>
             <TextFieldRoot>
                 <TextFieldInput placeholder="Title" name="title"></TextFieldInput>
             </TextFieldRoot>
