@@ -1,6 +1,5 @@
-import { notFound } from "next/navigation";
-import React from "react";
 import prisma from "@/prisma/client";
+import { notFound } from "next/navigation";
 
 type Props = {
     params: { id: number };

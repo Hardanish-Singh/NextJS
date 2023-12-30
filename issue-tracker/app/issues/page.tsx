@@ -1,16 +1,15 @@
+import IssueStatusBadge from "@/components/IssueStatusBadge";
+import prisma from "@/prisma/client";
 import {
     Button,
-    TableRoot,
-    TableHeader,
-    TableRow,
     TableBody,
-    TableColumnHeaderCell,
     TableCell,
+    TableColumnHeaderCell,
+    TableHeader,
+    TableRoot,
+    TableRow,
 } from "@radix-ui/themes";
 import Link from "next/link";
-import React from "react";
-import prisma from "@/prisma/client";
-import IssueStatusBadge from "@/components/IssueStatusBadge";
 
 const Issues = async () => {
     const issues = await prisma.issue.findMany();

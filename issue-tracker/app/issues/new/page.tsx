@@ -2,8 +2,8 @@
 import { addIssue } from "@/actions/addIssue";
 import ErrorMessage from "@/components/ErrorMessage";
 import Spinner from "@/components/Spinner";
-import { TextFieldRoot, TextFieldInput, TextArea, Button } from "@radix-ui/themes";
-import React, { useState, useRef } from "react";
+import { Button, TextArea, TextFieldInput, TextFieldRoot } from "@radix-ui/themes";
+import { useRef, useState } from "react";
 
 const NewIssuePage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);

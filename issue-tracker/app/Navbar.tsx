@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
-import { FaBug } from "react-icons/fa";
 import classnames from "classnames";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { FaBug } from "react-icons/fa";
 
 const Navbar = () => {
     const currentPath = usePathname();
