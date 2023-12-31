@@ -20,12 +20,7 @@ const IssueForm = ({issue}: Props) => {
     const ref = useRef<HTMLFormElement>(null);
     const clientAction = async (formData: FormData) => {
         setIsSubmitting(true);
-        let result: any;
-        if(!issue) {
-            result = await addIssue(formData);
-        } else {
-            result = await editIssue(formData, issue?.id);
-        }
+        const result = !issue ? await addIssue(formData) : await editIssue(formData, issue?.id);
         ref.current?.reset();
         if (result?.error) {
             setError((err) => ({
