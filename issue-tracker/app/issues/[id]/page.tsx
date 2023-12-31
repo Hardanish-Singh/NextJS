@@ -9,7 +9,7 @@ type Props = {
     params: { id: number };
 };
 
-const page = async ({ params: { id } }: Props) => {
+const IssueDetailPage = async ({ params: { id } }: Props) => {
     id = Number(id);
     if (isNaN(id)) {
         notFound();
@@ -46,4 +46,4 @@ const page = async ({ params: { id } }: Props) => {
     );
 };
 
-export default page;
+export default IssueDetailPage;
