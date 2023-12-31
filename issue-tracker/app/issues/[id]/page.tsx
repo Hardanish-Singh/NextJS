@@ -1,6 +1,6 @@
 import IssueStatusBadge from "@/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import { Flex, Heading, Text, Card } from "@radix-ui/themes";
+import { Flex, Heading, Text, Card, ScrollArea, Box } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -25,7 +25,13 @@ const page = async ({ params: { id } }: Props) => {
                 <IssueStatusBadge status={issue.status}/>
                 <Text>{issue.createdAt.toDateString()}</Text>
             </Flex>
-            <Card>{issue.description}</Card>
+            <ScrollArea scrollbars="vertical" style={{ maxHeight: 200, maxWidth: 500, border: "1px solid lightgrey", marginTop: 25 }}>
+                <Box p="2" pr="8">
+                    <Text as="p">
+                        {issue.description}
+                    </Text>
+                </Box>
+            </ScrollArea>
         </>
     );
 };
