@@ -1,5 +1,6 @@
 "use client";
 import { addIssue } from "@/actions/addIssue";
+import { editIssue } from "@/actions/editIssue";
 import ErrorMessage from "@/components/ErrorMessage";
 import Spinner from "@/components/Spinner";
 import { Issue } from "@prisma/client";
@@ -19,7 +20,12 @@ const IssueForm = ({issue}: Props) => {
     const ref = useRef<HTMLFormElement>(null);
     const clientAction = async (formData: FormData) => {
         setIsSubmitting(true);
-        const result = await addIssue(formData);
+        let result: any;
+        if(!issue) {
+            result = await addIssue(formData);
+        } else {
+            result = await editIssue(formData, issue?.id);
+        }
         ref.current?.reset();
         if (result?.error) {
             setError((err) => ({
@@ -35,10 +41,10 @@ const IssueForm = ({issue}: Props) => {
         <div className="max-w-xl">
             <form className="space-y-3" ref={ref} action={clientAction}>
                 <TextFieldRoot>
-                    <TextFieldInput defaultValue={issue?.title} placeholder="Title" name="title"></TextFieldInput>
+                    <TextFieldInput defaultValue={error.title ? "" : issue?.title} placeholder="Title" name="title"></TextFieldInput>
                 </TextFieldRoot>
                 <ErrorMessage>{error.title}</ErrorMessage>
-                <TextArea defaultValue={issue?.description} placeholder="Description" size="3" name="description"></TextArea>
+                <TextArea defaultValue={error.description ? "" :issue?.description} placeholder="Description" size="3" name="description"></TextArea>
                 <ErrorMessage>{error.description}</ErrorMessage>
                 <Button type="submit" disabled={isSubmitting}>
                     {issue ? 'Edit Issue' : 'Submit New Issue'}
