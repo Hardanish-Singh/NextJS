@@ -18,7 +18,7 @@ const page = async ({ params: { id } }: Props) => {
     }
     return (
         <>
-            <p>{issue.title}</p>
+            <p style={{fontWeight: "bold"}}>{issue.title}</p>
             <p>{issue.status}</p>
             <p>{issue.createdAt.toDateString()}</p>
         </>
