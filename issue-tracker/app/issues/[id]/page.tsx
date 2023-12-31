@@ -1,6 +1,6 @@
 import IssueStatusBadge from "@/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import { Flex, Heading, Text, Card, ScrollArea, Box } from "@radix-ui/themes";
+import { Box, Flex, Heading, ScrollArea, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 
 type Props = {
