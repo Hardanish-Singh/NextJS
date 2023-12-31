@@ -6,12 +6,10 @@ type Props = {
     children: string,
 }
 
-const NavLink = ({href, children}: Props) => {
-    return (
-        <NextLink href={href} passHref legacyBehavior>
-            <RadixLink>{children}</RadixLink>
-        </NextLink>
-    )
-};
+const NavLink = ({href, children}: Props) => (
+    <NextLink href={href} passHref legacyBehavior>
+        <RadixLink>{children}</RadixLink>
+    </NextLink>
+);
 
 export default NavLink;
