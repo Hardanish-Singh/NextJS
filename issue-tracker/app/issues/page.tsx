@@ -1,4 +1,5 @@
 import IssueStatusBadge from "@/components/IssueStatusBadge";
+import NavLink from "@/components/NavLink";
 import prisma from "@/prisma/client";
 import {
     Button,
@@ -32,7 +33,7 @@ const Issues = async () => {
                     {issues.map(({ id, title, status, createdAt }) => (
                         <TableRow key={id}>
                             <TableCell>
-                                <Link href={`/issues/${id}`}>{title}</Link>
+                                <NavLink href={`/issues/${id}`}>{title}</NavLink>
                                 <div className="block md:hidden">
                                     <IssueStatusBadge status={status} />
                                 </div>
