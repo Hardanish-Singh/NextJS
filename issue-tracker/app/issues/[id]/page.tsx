@@ -1,6 +1,6 @@
 import IssueStatusBadge from "@/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import { Box, Flex, Heading, ScrollArea, Text, Grid, Button } from "@radix-ui/themes";
+import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogRoot, AlertDialogTitle, AlertDialogTrigger, Box, Button, Flex, Grid, Heading, ScrollArea, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
@@ -21,8 +21,8 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
         notFound();
     }
     return (
-        <Grid columns={{initial: "1", md: "2"}} gap="5">
-            <Box>
+        <Grid columns={{initial: "1", sm: "5"}} gap="5">
+            <Box className="md:col-span-4">
                 <Heading>{issue.title}</Heading>
                 <Flex className="space-x-3" my="2">
                     <IssueStatusBadge status={issue.status}/>
@@ -37,10 +37,35 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
                 </ScrollArea>
             </Box>
             <Box>
-                <Button>
-                    <FaPencilAlt />
-                    <Link href={`/issues/${id}/edit`}>Edit</Link>
-                </Button>
+                <Flex direction="column" gap="4">
+                    <Button>
+                        <FaPencilAlt />
+                        <Link href={`/issues/${id}/edit`}>Edit</Link>
+                    </Button>
+                    <AlertDialogRoot>
+                        <AlertDialogTrigger>
+                            <Button color="red">
+                                Delete
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
+                            <AlertDialogDescription>Are you sure you want to delete the issue? This action cannot be undone</AlertDialogDescription>
+                            <Flex mt="4" gap="3">
+                                <AlertDialogCancel>
+                                    <Button variant="soft" color="gray">
+                                        Cancel
+                                    </Button>
+                                </AlertDialogCancel>
+                                <AlertDialogAction>
+                                    <Button color="red">
+                                        Delete Issue
+                                    </Button>
+                                </AlertDialogAction>
+                            </Flex>
+                        </AlertDialogContent>
+                    </AlertDialogRoot>
+                </Flex>
             </Box>
         </Grid>
     );
