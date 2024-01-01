@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import IssueForm from "../../_components/IssueForm";
 
 type Props = {
-    params: {id: number}
-}
+    params: { id: number };
+};
 
 const EditIssuePage = async ({ params: { id } }: Props) => {
     id = Number(id);
@@ -17,7 +17,7 @@ const EditIssuePage = async ({ params: { id } }: Props) => {
     if (!issue) {
         notFound();
     }
-    return <IssueForm issue={issue} />
+    return <IssueForm issue={issue} />;
 };
 
 export default EditIssuePage;

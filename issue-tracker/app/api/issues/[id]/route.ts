@@ -7,7 +7,10 @@ const editIssueSchema = z.object({
     description: z.string().min(1, "Description is required"),
 });
 
-export async function PATCH(request: NextRequest, {params}: {params: {id: string}}) {
+export async function PATCH(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     const body = await request.json();
     const validation = editIssueSchema.safeParse(body);
     if (!validation.success) {
@@ -27,11 +30,11 @@ export async function PATCH(request: NextRequest, {params}: {params: {id: string
             });
         }
         const updatedIssue = await prisma.issue.update({
-            where: {id: Number(params.id)},
+            where: { id: Number(params.id) },
             data: {
                 title: body.title,
                 description: body.description,
-            }
+            },
         });
         return NextResponse.json({
             data: updatedIssue,
@@ -46,7 +49,10 @@ export async function PATCH(request: NextRequest, {params}: {params: {id: string
     }
 }
 
-export async function DELETE(request: NextRequest, {params}: {params: {id: string}}) {
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: { id: string } }
+) {
     try {
         const issue = await prisma.issue.findUnique({
             where: { id: Number(params.id) },

@@ -25,15 +25,21 @@ const Issues = async () => {
                 <TableHeader>
                     <TableRow>
                         <TableColumnHeaderCell>Issue</TableColumnHeaderCell>
-                        <TableColumnHeaderCell className="hidden md:table-cell">Status</TableColumnHeaderCell>
-                        <TableColumnHeaderCell className="hidden md:table-cell">Created</TableColumnHeaderCell>
+                        <TableColumnHeaderCell className="hidden md:table-cell">
+                            Status
+                        </TableColumnHeaderCell>
+                        <TableColumnHeaderCell className="hidden md:table-cell">
+                            Created
+                        </TableColumnHeaderCell>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {issues.map(({ id, title, status, createdAt }) => (
                         <TableRow key={id}>
                             <TableCell>
-                                <NavLink href={`/issues/${id}`}>{title}</NavLink>
+                                <NavLink href={`/issues/${id}`}>
+                                    {title}
+                                </NavLink>
                                 <div className="block md:hidden">
                                     <IssueStatusBadge status={status} />
                                 </div>
@@ -41,7 +47,9 @@ const Issues = async () => {
                             <TableCell className="hidden md:table-cell">
                                 <IssueStatusBadge status={status} />
                             </TableCell>
-                            <TableCell className="hidden md:table-cell">{createdAt.toDateString()}</TableCell>
+                            <TableCell className="hidden md:table-cell">
+                                {createdAt.toDateString()}
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

@@ -1,17 +1,27 @@
 "use client";
 import { deleteIssue } from "@/actions/deleteIssue";
 import Spinner from "@/components/Spinner";
-import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogRoot, AlertDialogTitle, AlertDialogTrigger, Button, Flex } from "@radix-ui/themes";
+import {
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogRoot,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+    Button,
+    Flex,
+} from "@radix-ui/themes";
 import { useState } from "react";
 
-const DeleteIssueDialogBox = ({id}: {id: number}) => {
+const DeleteIssueDialogBox = ({ id }: { id: number }) => {
     const [error, setError] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const clientAction = async () => {
         try {
             setIsSubmitting(true);
             await deleteIssue(id);
-        } catch(err) {
+        } catch (err) {
             setIsSubmitting(false);
             setError(true);
         }
@@ -27,7 +37,10 @@ const DeleteIssueDialogBox = ({id}: {id: number}) => {
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                     <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
-                    <AlertDialogDescription>Are you sure you want to delete the issue? This action cannot be undone</AlertDialogDescription>
+                    <AlertDialogDescription>
+                        Are you sure you want to delete the issue? This action
+                        cannot be undone
+                    </AlertDialogDescription>
                     <Flex mt="4" gap="3">
                         <AlertDialogCancel>
                             <Button variant="soft" color="gray">
@@ -45,14 +58,21 @@ const DeleteIssueDialogBox = ({id}: {id: number}) => {
             <AlertDialogRoot open={error}>
                 <AlertDialogContent>
                     <AlertDialogTitle>Error</AlertDialogTitle>
-                    <AlertDialogDescription>Error during deletion of an issue</AlertDialogDescription>
-                    <Button variant="soft" color="gray" mt="2" onClick={() => setError(false)}>
+                    <AlertDialogDescription>
+                        Error during deletion of an issue
+                    </AlertDialogDescription>
+                    <Button
+                        variant="soft"
+                        color="gray"
+                        mt="2"
+                        onClick={() => setError(false)}
+                    >
                         OK
                     </Button>
                 </AlertDialogContent>
             </AlertDialogRoot>
         </>
-    )
+    );
 };
 
 export default DeleteIssueDialogBox;
