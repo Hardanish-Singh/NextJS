@@ -1,16 +1,28 @@
 "use client";
 import { deleteIssue } from "@/actions/deleteIssue";
-import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogTrigger, AlertDialogDescription, AlertDialogTitle, AlertDialogRoot, Button, Flex } from "@radix-ui/themes";
+import Spinner from "@/components/Spinner";
+import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogRoot, AlertDialogTitle, AlertDialogTrigger, Button, Flex } from "@radix-ui/themes";
 import { useState } from "react";
 
 const DeleteIssueDialogBox = ({id}: {id: number}) => {
     const [error, setError] = useState<boolean>(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const clientAction = async () => {
+        try {
+            setIsSubmitting(true);
+            await deleteIssue(id);
+        } catch(err) {
+            setIsSubmitting(false);
+            setError(true);
+        }
+    };
     return (
         <>
             <AlertDialogRoot>
                 <AlertDialogTrigger>
-                    <Button color="red">
-                        Delete
+                    <Button color="red" disabled={isSubmitting}>
+                        Delete Issue
+                        {isSubmitting && <Spinner />}
                     </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
@@ -23,13 +35,7 @@ const DeleteIssueDialogBox = ({id}: {id: number}) => {
                             </Button>
                         </AlertDialogCancel>
                         <AlertDialogAction>
-                            <Button color="red" onClick={ async() => {
-                                try {
-                                    await deleteIssue(id);
-                                } catch(err) {
-                                    setError(true);
-                                }
-                            }}>
+                            <Button color="red" onClick={clientAction}>
                                 Delete Issue
                             </Button>
                         </AlertDialogAction>
