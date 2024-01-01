@@ -1,10 +1,10 @@
 import IssueStatusBadge from "@/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogRoot, AlertDialogTitle, AlertDialogTrigger, Box, Button, Flex, Grid, Heading, ScrollArea, Text } from "@radix-ui/themes";
+import { AlertDialogRoot, AlertDialogTrigger, Box, Button, Flex, Grid, Heading, ScrollArea, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
-import DeleteIssueButton from "../_components/DeleteIssueButton";
+import DeleteIssueDialogBox from "../_components/DeleteIssueDialogBox";
 
 type Props = {
     params: { id: number };
@@ -43,27 +43,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
                         <FaPencilAlt />
                         <Link href={`/issues/${id}/edit`}>Edit</Link>
                     </Button>
-                    <AlertDialogRoot>
-                        <AlertDialogTrigger>
-                            <Button color="red">
-                                Delete
-                            </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                            <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
-                            <AlertDialogDescription>Are you sure you want to delete the issue? This action cannot be undone</AlertDialogDescription>
-                            <Flex mt="4" gap="3">
-                                <AlertDialogCancel>
-                                    <Button variant="soft" color="gray">
-                                        Cancel
-                                    </Button>
-                                </AlertDialogCancel>
-                                <AlertDialogAction>
-                                    <DeleteIssueButton id={id} />
-                                </AlertDialogAction>
-                            </Flex>
-                        </AlertDialogContent>
-                    </AlertDialogRoot>
+                    <DeleteIssueDialogBox id={id} />
                 </Flex>
             </Box>
         </Grid>
