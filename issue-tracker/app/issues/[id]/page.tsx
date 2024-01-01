@@ -4,6 +4,7 @@ import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDe
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
+import DeleteIssueButton from "../_components/DeleteIssueButton";
 
 type Props = {
     params: { id: number };
@@ -58,9 +59,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
                                     </Button>
                                 </AlertDialogCancel>
                                 <AlertDialogAction>
-                                    <Button color="red">
-                                        Delete Issue
-                                    </Button>
+                                    <DeleteIssueButton id={id} />
                                 </AlertDialogAction>
                             </Flex>
                         </AlertDialogContent>
