@@ -1,5 +1,6 @@
 "use client";
 
+import Spinner from "@/components/Spinner";
 import {
     Avatar,
     Box,
@@ -60,6 +61,7 @@ const Navbar = () => {
                         </ul>
                     </Flex>
                     <Box>
+                        {status === "loading" && <Spinner />}
                         {status === "authenticated" && (
                             <DropdownMenuRoot>
                                 <DropdownMenuTrigger>
