@@ -1,3 +1,4 @@
+import authOptions from "@/app/auth/authOptions";
 import IssueStatusBadge from "@/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
 import {
@@ -9,6 +10,7 @@ import {
     ScrollArea,
     Text,
 } from "@radix-ui/themes";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
@@ -23,6 +25,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
     if (isNaN(id)) {
         notFound();
     }
+    const session = await getServerSession(authOptions);
     const issue = await prisma.issue.findUnique({
         where: { id },
     });
@@ -52,15 +55,17 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
                     </Box>
                 </ScrollArea>
             </Box>
-            <Box>
-                <Flex direction="column" gap="4">
-                    <Button>
-                        <FaPencilAlt />
-                        <Link href={`/issues/${id}/edit`}>Edit</Link>
-                    </Button>
-                    <DeleteIssueDialogBox id={id} />
-                </Flex>
-            </Box>
+            {session && (
+                <Box>
+                    <Flex direction="column" gap="4">
+                        <Button>
+                            <FaPencilAlt />
+                            <Link href={`/issues/${id}/edit`}>Edit</Link>
+                        </Button>
+                        <DeleteIssueDialogBox id={id} />
+                    </Flex>
+                </Box>
+            )}
         </Grid>
     );
 };
