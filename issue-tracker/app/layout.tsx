@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "./Navbar";
 import AuthProvider from "./auth/Provider";
+import ToasterContext from "./auth/ToasterContext";
 import "./globals.css";
 import "./theme-config.css";
 
@@ -25,7 +26,10 @@ export default function RootLayout({
                 <AuthProvider>
                     <Theme appearance="light" accentColor="violet">
                         <Navbar />
-                        <main className="p-5">{children}</main>
+                        <main className="p-5">
+                            <ToasterContext />
+                            {children}
+                        </main>
                     </Theme>
                 </AuthProvider>
             </body>

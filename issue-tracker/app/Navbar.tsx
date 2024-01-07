@@ -63,32 +63,42 @@ const Navbar = () => {
                     <Box>
                         {status === "loading" && <Spinner />}
                         {status === "authenticated" && (
-                            <DropdownMenuRoot>
-                                <DropdownMenuTrigger>
-                                    <Avatar
-                                        src={session.user!.image!}
-                                        fallback="?"
-                                        size="2"
-                                        radius="full"
-                                        className="cursor-pointer"
-                                    />
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <DropdownMenuLabel>
-                                        <Text size="2">
-                                            {session.user!.email}
-                                        </Text>
-                                    </DropdownMenuLabel>
-                                    <DropdownMenuItem>
-                                        <Link href="/api/auth/signout">
-                                            Log Out
-                                        </Link>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenuRoot>
+                            <>
+                                {session &&
+                                session.user &&
+                                session.user.image ? (
+                                    <DropdownMenuRoot>
+                                        <DropdownMenuTrigger>
+                                            <Avatar
+                                                src={session.user!.image!}
+                                                fallback="?"
+                                                size="2"
+                                                radius="full"
+                                                className="cursor-pointer"
+                                            />
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent>
+                                            <DropdownMenuLabel>
+                                                <Text size="2">
+                                                    {session.user!.email}
+                                                </Text>
+                                            </DropdownMenuLabel>
+                                            <DropdownMenuItem>
+                                                <Link href="/api/auth/signout">
+                                                    Log Out
+                                                </Link>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenuRoot>
+                                ) : (
+                                    <Link href="/api/auth/signout">
+                                        Log Out
+                                    </Link>
+                                )}
+                            </>
                         )}
                         {status === "unauthenticated" && (
-                            <Link href="/api/auth/signin">Log In</Link>
+                            <Link href="/auth/signIn">Log In</Link>
                         )}
                     </Box>
                 </Flex>
