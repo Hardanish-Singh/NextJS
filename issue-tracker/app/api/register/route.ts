@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-const createIssueSchema = z.object({
+const registerUserSchema = z.object({
     name: z.string().min(1, "Name is required").max(255),
     email: z.string().email({ message: "Please enter a valid email address." }),
     password: z.string().min(1, "Password is required").max(255),
@@ -11,7 +11,7 @@ const createIssueSchema = z.object({
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
-    const validation = createIssueSchema.safeParse(body);
+    const validation = registerUserSchema.safeParse(body);
     if (!validation.success) {
         return NextResponse.json({
             data: validation.error.format(),
