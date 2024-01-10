@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
         });
     }
     try {
+        // check if email exists in the database
         const emailExist = await prisma.user.findUnique({
             where: {
                 email: body.email,
