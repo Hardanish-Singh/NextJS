@@ -1,7 +1,15 @@
 "use server";
 import { redirect } from "next/navigation";
 
-export const editIssue = async (formData: FormData, id: number) => {
+export const editIssue = async (
+    formData: FormData,
+    id: number
+): Promise<{
+    error: {
+        title: any;
+        description: any;
+    };
+}> => {
     const title = formData.get("title");
     const description = formData.get("description");
     const response = await fetch(`http://localhost:3000/api/issues/${id}`, {
