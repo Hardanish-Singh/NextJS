@@ -1,7 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
 
-export const deleteIssue = async (id: number) => {
+export const deleteIssue = async (id: number): Promise<void> => {
     const response = await fetch(`http://localhost:3000/api/issues/${id}`, {
         method: "DELETE",
         headers: {
