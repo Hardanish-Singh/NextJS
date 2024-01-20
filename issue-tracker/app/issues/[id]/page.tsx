@@ -14,6 +14,7 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
+import AssigneeSelect from "../_components/AssigneeSelect";
 import DeleteIssueDialogBox from "../_components/DeleteIssueDialogBox";
 
 type Props = {
@@ -58,6 +59,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
             {session && (
                 <Box>
                     <Flex direction="column" gap="4">
+                        <AssigneeSelect />
                         <Button>
                             <FaPencilAlt />
                             <Link href={`/issues/${id}/edit`}>Edit</Link>
