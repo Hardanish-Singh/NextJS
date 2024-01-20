@@ -3,8 +3,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 const editIssueSchema = z.object({
-    title: z.string().min(1, "Title is required").max(255),
-    description: z.string().min(1, "Description is required"),
+    title: z.string().min(1, "Title is required").max(255).optional(),
+    description: z
+        .string()
+        .min(1, "Description is required")
+        .max(65535)
+        .optional(),
+    assignedToUserId: z
+        .string()
+        .min(1, "AssignedToUserId is Required")
+        .max(255)
+        .optional()
+        .nullable(),
 });
 
 export async function PATCH(
@@ -19,6 +29,19 @@ export async function PATCH(
             status: 400,
         });
     }
+    const { title, description, assignedToUserId } = body;
+    // check if valid user id
+    if (assignedToUserId) {
+        let user = await prisma.user.findUnique({
+            where: { id: assignedToUserId },
+        });
+        if (!user) {
+            return NextResponse.json({
+                data: "Invalid User",
+                status: 404,
+            });
+        }
+    }
     try {
         const issue = await prisma.issue.findUnique({
             where: { id: Number(params.id) },
@@ -32,8 +55,9 @@ export async function PATCH(
         const updatedIssue = await prisma.issue.update({
             where: { id: Number(params.id) },
             data: {
-                title: body.title,
-                description: body.description,
+                title,
+                description,
+                assignedToUserId,
             },
         });
         return NextResponse.json({
@@ -54,13 +78,6 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     try {
-        // const session = await getServerSession(authOptions);
-        // if (!session) {
-        //     return NextResponse.json({
-        //         data: "",
-        //         status: 401,
-        //     });
-        // }
         const issue = await prisma.issue.findUnique({
             where: { id: Number(params.id) },
         });
