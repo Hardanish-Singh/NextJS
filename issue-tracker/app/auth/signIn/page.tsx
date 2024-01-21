@@ -97,32 +97,31 @@ const SignIn = () => {
                                 Sign in
                             </button>
                         </div>
-
-                        <div>
-                            <button
-                                type="submit"
-                                className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-600"
-                                onClick={() => {
-                                    signIn("google", {
-                                        redirect: false,
-                                        callbackUrl: `${window.location.origin}`,
-                                    });
-                                }}
-                            >
-                                Sign in with Google
-                            </button>
-                        </div>
-
-                        <div className="text-center">
-                            <Link
-                                className="text-sm mt-3 text-right"
-                                href={"/auth/register"}
-                            >
-                                Don't have an account?{" "}
-                                <span className="underline">Register</span>
-                            </Link>
-                        </div>
                     </form>
+                    <div>
+                        <button
+                            type="submit"
+                            className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black-600 mt-5"
+                            onClick={() => {
+                                signIn("google", {
+                                    redirect: false,
+                                    callbackUrl: `${window.location.origin}`,
+                                });
+                            }}
+                        >
+                            Sign in with Google
+                        </button>
+                    </div>
+
+                    <div className="text-center mt-5">
+                        <Link
+                            className="text-sm mt-3 text-right"
+                            href={"/auth/register"}
+                        >
+                            Don't have an account?{" "}
+                            <span className="underline">Register</span>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </>
