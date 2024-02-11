@@ -1,6 +1,7 @@
 import IssueStatusBadge from "@/components/IssueStatusBadge";
 import NavLink from "@/components/NavLink";
 import prisma from "@/prisma/client";
+import { Status } from "@prisma/client";
 import {
     Button,
     TableBody,
@@ -11,12 +12,24 @@ import {
     TableRow,
 } from "@radix-ui/themes";
 import Link from "next/link";
+import IssueStatusFilter from "./_components/IssueStatusFilter";
 
-const Issues = async () => {
-    const issues = await prisma.issue.findMany();
+type Props = {
+    searchParams: { status: Status };
+};
+
+const Issues = async ({ searchParams }: Props) => {
+    const statuses = Object.values(Status);
+    const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
+    const issues = await prisma.issue.findMany({
+        where: {
+            status,
+        },
+    });
     return (
         <>
-            <section className="mb-5">
+            <section className="mb-5 flex justify-between">
+                <IssueStatusFilter />
                 <Button>
                     <Link href={"/issues/new"}>New Issue</Link>
                 </Button>
@@ -25,21 +38,15 @@ const Issues = async () => {
                 <TableHeader>
                     <TableRow>
                         <TableColumnHeaderCell>Issue</TableColumnHeaderCell>
-                        <TableColumnHeaderCell className="hidden md:table-cell">
-                            Status
-                        </TableColumnHeaderCell>
-                        <TableColumnHeaderCell className="hidden md:table-cell">
-                            Created
-                        </TableColumnHeaderCell>
+                        <TableColumnHeaderCell className="hidden md:table-cell">Status</TableColumnHeaderCell>
+                        <TableColumnHeaderCell className="hidden md:table-cell">Created</TableColumnHeaderCell>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {issues.map(({ id, title, status, createdAt }) => (
                         <TableRow key={id}>
                             <TableCell>
-                                <NavLink href={`/issues/${id}`}>
-                                    {title}
-                                </NavLink>
+                                <NavLink href={`/issues/${id}`}>{title}</NavLink>
                                 <div className="block md:hidden">
                                     <IssueStatusBadge status={status} />
                                 </div>
@@ -47,9 +54,7 @@ const Issues = async () => {
                             <TableCell className="hidden md:table-cell">
                                 <IssueStatusBadge status={status} />
                             </TableCell>
-                            <TableCell className="hidden md:table-cell">
-                                {createdAt.toDateString()}
-                            </TableCell>
+                            <TableCell className="hidden md:table-cell">{createdAt.toDateString()}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

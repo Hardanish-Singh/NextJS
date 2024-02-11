@@ -43,9 +43,7 @@ const AssigneeSelect = async ({ issue }: Props) => {
     };
     return (
         <Select.Root
-            defaultValue={
-                !issue.assignedToUserId ? "unassigned" : issue.assignedToUserId
-            }
+            defaultValue={!issue.assignedToUserId ? "unassigned" : issue.assignedToUserId}
             onValueChange={(userId) => onValueChange(userId)}
         >
             <Select.Trigger placeholder="Assign..." />
