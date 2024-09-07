@@ -21,7 +21,7 @@ const SignIn = () => {
         })
             .then((response) => {
                 if (response?.error) {
-                    toast.error("Passwords do not match");
+                    toast.error("Login failed");
                 } else if (response?.ok && !response?.error) {
                     ref?.current?.reset();
                     toast.success("Logged in successfully!");
