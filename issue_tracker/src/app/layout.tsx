@@ -1,3 +1,5 @@
+import { Theme } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./Navbar";
@@ -15,8 +17,10 @@ const RootLayout = ({ children }: Props): React.JSX.Element => {
     return (
         <html lang="en" suppressHydrationWarning>
             <body>
-                <Navbar />
-                <main>{children}</main>
+                <Theme>
+                    <Navbar />
+                    <main className="p-5">{children}</main>
+                </Theme>
             </body>
         </html>
     );
