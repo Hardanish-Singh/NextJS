@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import "react-quill/dist/quill.snow.css";
 
 type RichTextEditorProps = {
@@ -10,17 +10,21 @@ type RichTextEditorProps = {
     value?: string;
 };
 
-const RichTextEditor = ({ placeholder, onChange, value }: RichTextEditorProps) => {
-    const ReactQuill = useMemo(() => dynamic(() => import("react-quill"), { ssr: false }), []);
-    return (
-        <ReactQuill
-            theme="snow"
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            /*readOnly*/
-        />
-    );
-};
+const RichTextEditor = React.forwardRef(
+    ({ placeholder, onChange, value }: RichTextEditorProps, ref: React.Ref<HTMLElement>) => {
+        const ReactQuill = useMemo(() => dynamic(() => import("react-quill"), { ssr: false }), []);
+        return (
+            <ReactQuill
+                theme="snow"
+                // theme="bubble"
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                /*readOnly*/
+            />
+        );
+    }
+);
 
+RichTextEditor.displayName = "RichTextEditor";
 export default RichTextEditor;
