@@ -18,11 +18,7 @@ export const metadata: Metadata = {
     description: "Issue Tracker",
 };
 
-type Props = {
-    children: React.ReactNode;
-};
-
-const RootLayout = ({ children }: Props): React.JSX.Element => {
+const RootLayout = ({ children }: React.PropsWithChildren): React.JSX.Element => {
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={inter.variable}>
