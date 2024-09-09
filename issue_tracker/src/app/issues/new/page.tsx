@@ -14,10 +14,16 @@ const NewIssuePage = () => {
     };
     return (
         <div className="max-w-xl space-y-3">
-            <TextField.Root placeholder="Title" name="title"></TextField.Root>
-            {/* <TextArea placeholder="Description" name="description"></TextArea> */}
-            <RichTextEditor placeholder="Description" onChange={(value) => setDescription(value)} value={description} />
-            <Button>Submit New Issue</Button>
+            <form className="space-y-3" ref={ref} action={clientAction}>
+                <TextField.Root placeholder="Title" name="title"></TextField.Root>
+                {/* <TextArea placeholder="Description" name="description"></TextArea> */}
+                <RichTextEditor
+                    placeholder="Description"
+                    onChange={(value) => setDescription(value)}
+                    value={description}
+                />
+                <Button>Submit New Issue</Button>
+            </form>
         </div>
     );
 };

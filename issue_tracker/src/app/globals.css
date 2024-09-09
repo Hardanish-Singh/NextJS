@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+/* React Quill Min Height */
+.ql-editor {
+    min-height: 200px;
 }
 
 @layer utilities {
