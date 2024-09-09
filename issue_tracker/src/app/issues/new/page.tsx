@@ -1,29 +1,28 @@
 "use client";
 
+import { createIssueSchema } from "@/app/api/issues/route";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Text, TextField } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 import RichTextEditor from "../_components/RichTextEditor";
 
-type IssueFormInputs = {
-    title: string;
-    description: string;
-};
+type IssueFormInputs = z.infer<typeof createIssueSchema>; // Used Zod for infering the type
 
 const NewIssuePage = () => {
     // Router hook
     const router = useRouter();
 
-    // State for form error handling
-    const [error, setError] = useState({
-        title: "",
-        description: "",
-    });
-
     // Form validation using React Hook Form
-    const { register, handleSubmit, control } = useForm<IssueFormInputs>({
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: { errors }, // // Form state for error handling
+    } = useForm<IssueFormInputs>({
         defaultValues: { title: "", description: "" },
+        resolver: zodResolver(createIssueSchema),
     });
 
     // Form onSubmit Handler
@@ -41,28 +40,28 @@ const NewIssuePage = () => {
         if (result.status === 201) {
             router.push("/issues");
         } else {
-            setError((err) => ({
-                ...err,
-                title: result?.data?.title?._errors?.[0] ?? "",
-                description: result?.data?.description?._errors?.[0] ?? "",
-            }));
+            console.log("Error creating issue", result);
         }
     };
 
     return (
         <form className="max-w-xl space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <TextField.Root placeholder="Title" {...register("title")}></TextField.Root>
-            <Text color="red" as="p">
-                {error.title}
-            </Text>
+            {errors.title && (
+                <Text color="red" as="p">
+                    {errors.title.message}
+                </Text>
+            )}
             <Controller
                 name="description"
                 control={control}
                 render={({ field }) => <RichTextEditor placeholder="Description" {...field} />}
             />
-            <Text color="red" as="p">
-                {error.description}
-            </Text>
+            {errors.description && (
+                <Text color="red" as="p">
+                    {errors.description.message}
+                </Text>
+            )}
             <Button>Submit New Issue</Button>
         </form>
     );
