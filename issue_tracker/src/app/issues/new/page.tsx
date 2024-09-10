@@ -12,15 +12,14 @@ import RichTextEditor from "../_components/RichTextEditor";
 type IssueFormInputs = z.infer<typeof createIssueSchema>; // Used Zod for infering the type
 
 const NewIssuePage = () => {
-    // Router hook
-    const router = useRouter();
+    const router = useRouter(); // useRouter hook
 
     // Form validation using React Hook Form
     const {
         register,
         handleSubmit,
         control,
-        formState: { errors, isSubmitting, isSubmitted }, // // Form state for error handling
+        formState: { errors, isSubmitting, isSubmitted }, // Form state for error handling
     } = useForm<IssueFormInputs>({
         defaultValues: { title: "", description: "" },
         resolver: zodResolver(createIssueSchema),
