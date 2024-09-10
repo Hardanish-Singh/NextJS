@@ -32,40 +32,44 @@ const IssuesPage = ({ searchParams }: Props): React.JSX.Element => {
     );
 };
 
-const Issues = async ({ status }: any) => {
-    const issues: Issue[] = await prisma.issue.findMany({
+const Issues = async ({ status }: { status: Status | undefined }) => {
+    const promise = prisma.issue.findMany({
         where: {
             status,
         },
     });
 
     return (
-        <Await promise={issues}>
-            <Table.Root variant="surface">
-                <Table.Header>
-                    <Table.Row>
-                        <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-                        <Table.ColumnHeaderCell className="max-md:hidden">Status</Table.ColumnHeaderCell>
-                        <Table.ColumnHeaderCell className="max-md:hidden">Created</Table.ColumnHeaderCell>
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {issues.map(({ id, title, status, createdAt }: Issue) => (
-                        <Table.Row key={id}>
-                            <Table.Cell>
-                                {title}
-                                <section className="block md:hidden">
-                                    <IssueStatusBadge status={status} />
-                                </section>
-                            </Table.Cell>
-                            <Table.Cell className="max-md:hidden">
-                                <IssueStatusBadge status={status} />
-                            </Table.Cell>
-                            <Table.Cell className="max-md:hidden">{createdAt.toDateString()}</Table.Cell>
-                        </Table.Row>
-                    ))}
-                </Table.Body>
-            </Table.Root>
+        <Await promise={promise}>
+            {(props: Issue[]) => {
+                return (
+                    <Table.Root variant="surface">
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell className="max-md:hidden">Status</Table.ColumnHeaderCell>
+                                <Table.ColumnHeaderCell className="max-md:hidden">Created</Table.ColumnHeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {props.map(({ id, title, status, createdAt }: Issue) => (
+                                <Table.Row key={id}>
+                                    <Table.Cell>
+                                        {title}
+                                        <section className="block md:hidden">
+                                            <IssueStatusBadge status={status} />
+                                        </section>
+                                    </Table.Cell>
+                                    <Table.Cell className="max-md:hidden">
+                                        <IssueStatusBadge status={status} />
+                                    </Table.Cell>
+                                    <Table.Cell className="max-md:hidden">{createdAt.toDateString()}</Table.Cell>
+                                </Table.Row>
+                            ))}
+                        </Table.Body>
+                    </Table.Root>
+                );
+            }}
         </Await>
     );
 };

@@ -1,7 +1,7 @@
-async function Await(props: any) {
+async function Await<T>(props: { promise: Promise<T>; children: (value: T) => JSX.Element }) {
     const { promise, children } = props;
-    await promise;
-    return children;
+    const data = await promise;
+    return children(data);
 }
 
 export default Await;
