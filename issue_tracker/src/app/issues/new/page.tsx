@@ -1,7 +1,7 @@
 "use client";
 
-import { createIssueSchema } from "@/app/api/issues/route";
 import Spinner from "@/app/components/Spinner";
+import { createIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Text, TextField } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ const NewIssuePage = () => {
         register,
         handleSubmit,
         control,
-        formState: { errors, isSubmitting, isSubmitted }, // Form state for error handling
+        formState: { errors, isSubmitting }, // Form state for error handling
     } = useForm<IssueFormInputs>({
         defaultValues: { title: "", description: "" },
         resolver: zodResolver(createIssueSchema),

@@ -2,6 +2,7 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import "react-loading-skeleton/dist/skeleton.css";
 import "./globals.css";
 import Navbar from "./Navbar";
 import "./theme-config.css";
