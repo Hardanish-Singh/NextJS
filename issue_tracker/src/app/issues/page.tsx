@@ -5,6 +5,7 @@ import { Fragment, Suspense } from "react";
 import prisma from "../../../prisma/client";
 import Await from "../components/Await";
 import IssueStatusBadge from "../components/IssueStatusBadge";
+import NavLink from "../components/NavLink";
 import IssueStatusFilter from "./_components/IssueStatusFilter";
 import IssuesLoadingSkeleton from "./_components/IssuesLoadingSkeleton";
 
@@ -22,7 +23,9 @@ const IssuesPage = ({ searchParams }: Props): React.JSX.Element => {
             <section className="mb-5 flex justify-between">
                 <IssueStatusFilter />
                 <Button>
-                    <Link href={"/issues/new"}>New Issue</Link>
+                    <Link href={"/issues/new"} prefetch={false}>
+                        New Issue
+                    </Link>
                 </Button>
             </section>
             <Suspense key={key} fallback={<IssuesLoadingSkeleton />}>
@@ -55,7 +58,7 @@ const Issues = async ({ status }: { status: Status | undefined }) => {
                             {props.map(({ id, title, status, createdAt }: Issue) => (
                                 <Table.Row key={id}>
                                     <Table.Cell>
-                                        {title}
+                                        <NavLink href={`/issues/${id}`}>{title}</NavLink>
                                         <section className="block md:hidden">
                                             <IssueStatusBadge status={status} />
                                         </section>

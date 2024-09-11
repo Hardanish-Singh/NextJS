@@ -13,16 +13,7 @@ type RichTextEditorProps = {
 const RichTextEditor = React.forwardRef(
     ({ placeholder, onChange, value }: RichTextEditorProps, ref: React.Ref<HTMLElement>) => {
         const ReactQuill = useMemo(() => dynamic(() => import("react-quill"), { ssr: false }), []);
-        return (
-            <ReactQuill
-                theme="snow"
-                // theme="bubble"
-                placeholder={placeholder}
-                value={value}
-                onChange={onChange}
-                /*readOnly*/
-            />
-        );
+        return <ReactQuill theme="snow" placeholder={placeholder} value={value} onChange={onChange} />;
     }
 );
 

@@ -2,9 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* React Quill Min Height */
+/* React Quill CSS */
 .ql-editor {
     min-height: 200px;
+    max-height: 500px;
+}
+
+.rich-text-read-editor > .ql-toolbar {
+    display: none;
+}
+
+.rich-text-read-editor > .ql-container {
+    border: none !important;
 }
 
 @layer utilities {
