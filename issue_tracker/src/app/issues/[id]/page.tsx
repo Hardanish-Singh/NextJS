@@ -1,7 +1,9 @@
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
-import { Box, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
+import { Box, Button, Card, Flex, Grid, Heading, Link, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
+import { FaPencilAlt } from "react-icons/fa";
 import prisma from "../../../../prisma/client";
+import DeleteIssueDialogBox from "../_components/DeleteIssueDialogBox";
 import RichTextReadEditor from "../_components/RichTextReadEditor";
 
 type Props = {
@@ -31,6 +33,17 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
                 <Card>
                     <RichTextReadEditor value={issue.description} />
                 </Card>
+            </Box>
+            <Box>
+                <Flex direction="column" gap="4">
+                    <Button>
+                        <FaPencilAlt />
+                        <Link href={`/issues/${id}/edit`} className="text-white no-underline">
+                            Edit
+                        </Link>
+                    </Button>
+                    <DeleteIssueDialogBox id={id} />
+                </Flex>
             </Box>
         </Grid>
     );
