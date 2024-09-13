@@ -8,10 +8,12 @@
     max-height: 500px;
 }
 
+/* React Quill CSS */
 .rich-text-read-editor > .ql-toolbar {
     display: none;
 }
 
+/* React Quill CSS */
 .rich-text-read-editor > .ql-container {
     border: none !important;
 }

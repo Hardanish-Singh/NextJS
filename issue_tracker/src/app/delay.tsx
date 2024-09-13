@@ -1,3 +1,4 @@
+// Simulate Delay of 2 seconds to test loading states for development purposes
 export const delay = async () => {
     const promise = new Promise((resolve, reject) => {
         setTimeout(() => {
