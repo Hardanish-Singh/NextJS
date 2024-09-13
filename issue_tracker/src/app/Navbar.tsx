@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaBug } from "react-icons/fa";
 
+// Navigation Links
 const links: Array<{
     label: string;
     href: string;

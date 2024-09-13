@@ -14,6 +14,7 @@ const inter = Inter({
     variable: "--font-inter",
 });
 
+// Setup Application Metadata
 export const metadata: Metadata = {
     title: "Issue Tracker",
     description: "Issue Tracker",
