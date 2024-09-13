@@ -36,6 +36,7 @@ const IssueDetailPage = async ({ params: { id } }: Props) => {
             </Box>
             <Box>
                 <Flex direction="column" gap="4">
+                    {/*  <AssigneeSelect issue={issue} /> */}
                     <Button>
                         <FaPencilAlt />
                         <Link href={`/issues/${id}/edit`} className="text-white no-underline">

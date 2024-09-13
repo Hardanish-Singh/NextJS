@@ -4,6 +4,17 @@ import prisma from "../../../../prisma/client";
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
+    const { title, description } = body;
+    // Check if description is empty and return error message if it is
+    if (description.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
+        return NextResponse.json({
+            data: {
+                title: "",
+                description: "Description is required",
+            },
+            status: 400,
+        });
+    }
     const validation = createIssueSchema.safeParse(body);
     if (!validation.success) {
         return NextResponse.json({
@@ -14,8 +25,8 @@ export async function POST(request: NextRequest) {
     try {
         const newIssue = await prisma.issue.create({
             data: {
-                title: body.title,
-                description: body.description,
+                title,
+                description,
             },
         });
         return NextResponse.json({

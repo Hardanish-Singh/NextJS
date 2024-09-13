@@ -1,4 +1,5 @@
 "use server";
+
 import { redirect } from "next/navigation";
 
 export const deleteIssue = async (id: number): Promise<void> => {
