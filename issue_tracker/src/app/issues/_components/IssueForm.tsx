@@ -17,7 +17,7 @@ type Props = {
     issue?: Issue;
 };
 
-const IssueForm = ({ issue }: Props) => {
+const IssueForm = ({ issue }: Props): React.JSX.Element => {
     // Form validation using React Hook Form
     const {
         register,

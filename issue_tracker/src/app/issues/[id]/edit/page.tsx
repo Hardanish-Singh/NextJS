@@ -6,7 +6,7 @@ type Props = {
     params: { id: number };
 };
 
-const EditIssuePage = async ({ params: { id } }: Props) => {
+const EditIssuePage = async ({ params: { id } }: Props): Promise<JSX.Element> => {
     id = Number(id);
     if (isNaN(id)) {
         notFound();
@@ -17,6 +17,7 @@ const EditIssuePage = async ({ params: { id } }: Props) => {
     if (!issue) {
         notFound();
     }
+
     return <IssueForm issue={issue} />;
 };
 

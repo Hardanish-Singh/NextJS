@@ -5,7 +5,11 @@ import { AlertDialog, Button, Flex } from "@radix-ui/themes";
 import { useState } from "react";
 import { deleteIssue } from "../../../../actions/deleteIssue";
 
-const DeleteIssueDialogBox = ({ id }: { id: number }) => {
+type Props = {
+    id: number;
+};
+
+const DeleteIssueDialogBox = ({ id }: Props): React.JSX.Element => {
     const [error, setError] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const clientAction = async () => {
@@ -17,6 +21,7 @@ const DeleteIssueDialogBox = ({ id }: { id: number }) => {
             setError(true);
         }
     };
+
     return (
         <>
             <AlertDialog.Root>
