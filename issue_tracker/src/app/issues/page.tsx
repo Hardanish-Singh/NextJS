@@ -9,11 +9,15 @@ import NavLink from "../components/NavLink";
 import IssueStatusFilter from "./_components/IssueStatusFilter";
 import IssuesLoadingSkeleton from "./_components/IssuesLoadingSkeleton";
 
-type Props = {
+type IssuesPage = {
     searchParams: { status: Status };
 };
 
-const IssuesPage = ({ searchParams }: Props): React.JSX.Element => {
+type IssuesProps = {
+    status: Status | undefined;
+};
+
+const IssuesPage = ({ searchParams }: IssuesPage): React.JSX.Element => {
     const statuses = Object.values(Status);
     const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
     const key = JSON.parse(JSON.stringify(searchParams?.status || ""));
@@ -35,7 +39,7 @@ const IssuesPage = ({ searchParams }: Props): React.JSX.Element => {
     );
 };
 
-const Issues = async ({ status }: { status: Status | undefined }) => {
+const Issues = async ({ status }: IssuesProps): Promise<JSX.Element> => {
     const promise = prisma.issue.findMany({
         where: {
             status,
