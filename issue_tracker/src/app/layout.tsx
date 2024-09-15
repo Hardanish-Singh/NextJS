@@ -3,6 +3,8 @@ import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "react-loading-skeleton/dist/skeleton.css";
+import AuthProvider from "./api/auth/Provider";
+import ToasterContext from "./api/auth/ToasterContext";
 import "./globals.css";
 import Navbar from "./Navbar";
 import "./theme-config.css";
@@ -24,10 +26,15 @@ const RootLayout = ({ children }: React.PropsWithChildren): React.JSX.Element =>
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={inter.variable}>
-                <Theme appearance="light" accentColor="violet">
-                    <Navbar />
-                    <main className="p-5">{children}</main>
-                </Theme>
+                <AuthProvider>
+                    <Theme appearance="light" accentColor="violet">
+                        <Navbar />
+                        <main className="p-5">
+                            <ToasterContext />
+                            {children}
+                        </main>
+                    </Theme>
+                </AuthProvider>
             </body>
         </html>
     );
