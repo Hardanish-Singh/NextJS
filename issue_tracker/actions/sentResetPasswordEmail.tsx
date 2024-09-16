@@ -34,7 +34,7 @@ const sentResetPasswordEmail = async (email: string) => {
 
     const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
-        to: process.env.EMAIL_ADDRESS,
+        to: process.env.EMAIL_ADDRESS, // Replace with email variable from above in future, for now this will work
         subject: "Hello from Nodemailer",
         text: "This is a test email sent using Nodemailer.",
         html: `Click here to <a href="http://localhost:3000/reset/${token}">Reset Password</a>`,
