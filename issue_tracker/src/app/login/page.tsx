@@ -113,6 +113,12 @@ const SignIn = () => {
                             Don&apos;t have an account? <span className="underline">Register</span>
                         </Link>
                     </div>
+
+                    <div className="text-center mt-5">
+                        <Link className="text-sm mt-3 text-right" href={"/reset"}>
+                            <span className="underline">Forgot Password?</span>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </>
