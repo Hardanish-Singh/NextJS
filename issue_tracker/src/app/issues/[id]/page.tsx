@@ -1,4 +1,5 @@
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
+import { auth } from "@/auth";
 import { Box, Button, Card, Flex, Grid, Heading, Link, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
@@ -22,6 +23,8 @@ const IssueDetailPage = async ({ params: { id } }: Props): Promise<JSX.Element> 
         notFound();
     }
 
+    const session = await auth();
+
     return (
         <Grid columns={{ initial: "1", sm: "5" }} gap="5">
             <Box className="md:col-span-4">
@@ -34,18 +37,20 @@ const IssueDetailPage = async ({ params: { id } }: Props): Promise<JSX.Element> 
                     <RichTextReadEditor value={issue.description} />
                 </Card>
             </Box>
-            <Box>
-                <Flex direction="column" gap="4">
-                    {/*  <AssigneeSelect issue={issue} /> */}
-                    <Button>
-                        <FaPencilAlt />
-                        <Link href={`/issues/${id}/edit`} className="text-white no-underline">
-                            Edit
-                        </Link>
-                    </Button>
-                    <DeleteIssueDialogBox id={id} />
-                </Flex>
-            </Box>
+            {session != null && (
+                <Box>
+                    <Flex direction="column" gap="4">
+                        {/*  <AssigneeSelect issue={issue} /> */}
+                        <Button>
+                            <FaPencilAlt />
+                            <Link href={`/issues/${id}/edit`} className="text-white no-underline">
+                                Edit
+                            </Link>
+                        </Button>
+                        <DeleteIssueDialogBox id={id} />
+                    </Flex>
+                </Box>
+            )}
         </Grid>
     );
 };
