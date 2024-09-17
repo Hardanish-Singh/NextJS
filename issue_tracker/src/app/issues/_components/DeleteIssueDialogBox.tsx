@@ -15,7 +15,10 @@ const DeleteIssueDialogBox = ({ id }: Props): React.JSX.Element => {
     const clientAction = async () => {
         try {
             setIsSubmitting(true);
-            await deleteIssue(id);
+            const result = await deleteIssue(id);
+            if (result.error) {
+                setError(true);
+            }
         } catch (err) {
             setIsSubmitting(false);
             setError(true);
@@ -54,7 +57,15 @@ const DeleteIssueDialogBox = ({ id }: Props): React.JSX.Element => {
                 <AlertDialog.Content>
                     <AlertDialog.Title>Error</AlertDialog.Title>
                     <AlertDialog.Description>Error during deletion of an issue</AlertDialog.Description>
-                    <Button variant="soft" color="gray" mt="2" onClick={() => setError(false)}>
+                    <Button
+                        variant="soft"
+                        color="gray"
+                        mt="2"
+                        onClick={() => {
+                            setError(false);
+                            setIsSubmitting(false);
+                        }}
+                    >
                         OK
                     </Button>
                 </AlertDialog.Content>

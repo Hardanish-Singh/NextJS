@@ -36,7 +36,10 @@ export async function POST(request: NextRequest) {
     } catch (err) {
         console.error("Error during creation of an issue", err);
         return NextResponse.json({
-            data: err,
+            data: {
+                title: "",
+                description: "Error during creation of an issue",
+            },
             status: 500,
         });
     }

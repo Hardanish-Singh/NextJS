@@ -2,7 +2,11 @@
 
 import { redirect } from "next/navigation";
 
-export const deleteIssue = async (id: number): Promise<void> => {
+type deleteIssue = {
+    error: string;
+};
+
+export const deleteIssue = async (id: number): Promise<deleteIssue> => {
     const response = await fetch(`http://localhost:3000/api/issues/${id}`, {
         method: "DELETE",
         headers: {
@@ -14,5 +18,9 @@ export const deleteIssue = async (id: number): Promise<void> => {
     const result = await response.json();
     if (result.status === 201) {
         redirect("/issues");
+    } else {
+        return {
+            error: result.data,
+        };
     }
 };

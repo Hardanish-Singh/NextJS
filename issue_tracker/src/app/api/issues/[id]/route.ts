@@ -40,7 +40,10 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
         });
         if (!issue) {
             return NextResponse.json({
-                data: "Invalid Issue",
+                data: {
+                    title: "",
+                    description: "Invalid Issue",
+                },
                 status: 404,
             });
         }
@@ -59,7 +62,10 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
     } catch (err) {
         console.error("Error during editing of an issue", err);
         return NextResponse.json({
-            data: err,
+            data: {
+                title: "",
+                description: "Error during editing of an issue",
+            },
             status: 500,
         });
     }
@@ -86,7 +92,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     } catch (err) {
         console.error("Error during deletion of an issue", err);
         return NextResponse.json({
-            data: err,
+            data: "Error during deletion of an issue",
             status: 500,
         });
     }
