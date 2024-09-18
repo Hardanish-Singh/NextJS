@@ -18,10 +18,10 @@ const ResetPassword = ({ params }: { params: { token: string } }) => {
         } else {
             const result = await resetPassword(password, params.token);
             if (result?.success) {
-                toast.success(result?.message);
+                toast.success(result.message);
                 router.push("/login");
             } else {
-                toast.error(result?.message!);
+                toast.error(result.message!);
             }
         }
     };

@@ -16,17 +16,17 @@ const Reset = () => {
         }
         const result = await sentResetPasswordEmail(email);
         if (result?.success) {
-            toast.success(result?.message);
+            toast.success(result.message);
             router.push("/");
         } else {
-            toast.error(result?.message!);
+            toast.error(result.message!);
         }
     };
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <h1 className="mb-2 text-center text-sm font-semibold text-gray-900">Reset your password</h1>
-            <p className="text-center text-sm">Enter your email and we'll send you a link to reset your password.</p>
+            <p className="text-center text-sm">Enter your email and we will send you a link to reset your password.</p>
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form action={resetClientPassword} className="w-full space-y-6" ref={ref}>
                     <div>
