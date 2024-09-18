@@ -38,7 +38,6 @@ const IssueForm = ({ issue }: Props): React.JSX.Element => {
     // Form onSubmit Handler
     const onSubmit: SubmitHandler<IssueFormInputs> = async ({ title, description }) => {
         const result = !issue ? await addIssue(title, description) : await editIssue(title, description, issue?.id);
-        console.log(result);
         if (result?.error) {
             setError((err) => ({
                 ...err,
