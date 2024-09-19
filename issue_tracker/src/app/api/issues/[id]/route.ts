@@ -4,9 +4,9 @@ import prisma from "../../../../../prisma/client";
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
     const body = await request.json();
-    const { title, description /*assignedToUserId*/ } = body;
+    const { title, description, assignedToUserId } = body;
     // Check if description is empty and return error message if it is
-    if (description.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
+    if (description && description.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
         return NextResponse.json({
             data: {
                 title: "",
@@ -22,18 +22,18 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
             status: 400,
         });
     }
-    // // check if valid user id
-    // if (assignedToUserId) {
-    //     let user = await prisma.user.findUnique({
-    //         where: { id: assignedToUserId },
-    //     });
-    //     if (!user) {
-    //         return NextResponse.json({
-    //             data: "Invalid User",
-    //             status: 404,
-    //         });
-    //     }
-    // }
+    // check if valid user id
+    if (assignedToUserId) {
+        const user = await prisma.user.findUnique({
+            where: { id: assignedToUserId },
+        });
+        if (!user) {
+            return NextResponse.json({
+                data: "Invalid User",
+                status: 404,
+            });
+        }
+    }
     try {
         const issue = await prisma.issue.findUnique({
             where: { id: Number(params.id) },
@@ -52,7 +52,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
             data: {
                 title,
                 description,
-                // assignedToUserId,
+                assignedToUserId,
             },
         });
         return NextResponse.json({

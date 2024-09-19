@@ -13,6 +13,8 @@ model User {
   // Token for resetting password
   token         String?         @unique
 
+  assignedIssues Issue[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -4,6 +4,7 @@ import { Box, Button, Card, Flex, Grid, Heading, Link, Text } from "@radix-ui/th
 import { notFound } from "next/navigation";
 import { FaPencilAlt } from "react-icons/fa";
 import prisma from "../../../../prisma/client";
+import AssigneeSelect from "../_components/AssigneeSelect";
 import DeleteIssueDialogBox from "../_components/DeleteIssueDialogBox";
 import RichTextReadEditor from "../_components/RichTextReadEditor";
 
@@ -37,10 +38,10 @@ const IssueDetailPage = async ({ params: { id } }: Props): Promise<JSX.Element> 
                     <RichTextReadEditor value={issue.description} />
                 </Card>
             </Box>
-            {session != null && (
+            {session && (
                 <Box>
                     <Flex direction="column" gap="4">
-                        {/*  <AssigneeSelect issue={issue} /> */}
+                        <AssigneeSelect issue={issue} />
                         <Button>
                             <FaPencilAlt />
                             <Link href={`/issues/${id}/edit`} className="text-white no-underline">
