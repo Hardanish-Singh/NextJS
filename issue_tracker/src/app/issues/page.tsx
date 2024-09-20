@@ -64,7 +64,9 @@ const Issues = async ({ searchParams }: IssuesProps): Promise<JSX.Element> => {
 
     const sortDirection = searchParams.sort === "asc" ? "asc" : "desc";
     const orderBy = tableColumnNames.includes(searchParams.orderBy)
-        ? { [searchParams.orderBy]: sortDirection }
+        ? {
+              [searchParams.orderBy]: sortDirection,
+          }
         : undefined;
 
     const promise = prisma.issue.findMany({
