@@ -74,11 +74,6 @@ const Issues = async ({ searchParams }: IssuesProps): Promise<JSX.Element> => {
             status,
         },
         orderBy,
-        // orderBy: {
-        //     ...(searchParams.orderBy && {
-        //         [searchParams.orderBy]: searchParams.sort === "asc" ? "asc" : "desc",
-        //     }),
-        // },
     });
 
     return (

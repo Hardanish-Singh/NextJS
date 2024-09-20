@@ -21,7 +21,16 @@ const IssueStatusFilter = (): React.JSX.Element => {
     return (
         <Select.Root
             value={searchParams.get("status") || ""}
-            onValueChange={(status) => router.push(`issues?status=${status}`)}
+            onValueChange={(status) => {
+                const params = new URLSearchParams();
+
+                if (status) params.append("status", status);
+                if (searchParams.get("orderBy")) params.append("orderBy", searchParams.get("orderBy")!);
+                if (searchParams.get("sort")) params.append("sort", searchParams.get("sort")!);
+
+                const query = params.size ? "?" + params.toString() : "";
+                router.push("/issues" + query);
+            }}
         >
             <Select.Trigger placeholder="Filter by Status..." />
             <Select.Content>
