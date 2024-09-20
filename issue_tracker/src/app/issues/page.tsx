@@ -2,6 +2,7 @@ import { Issue, Status } from "@prisma/client";
 import { Button, Table } from "@radix-ui/themes";
 import Link from "next/link";
 import { Fragment, Suspense } from "react";
+import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
 import prisma from "../../../prisma/client";
 import Await from "../components/Await";
 import IssueStatusBadge from "../components/IssueStatusBadge";
@@ -9,18 +10,36 @@ import NavLink from "../components/NavLink";
 import IssueStatusFilter from "./_components/IssueStatusFilter";
 import IssuesLoadingSkeleton from "./_components/IssuesLoadingSkeleton";
 
-type IssuesPage = {
-    searchParams: { status: Status };
-};
+const columns: {
+    label: string; // Table Column Name Label
+    value: keyof Issue; // Column name of Issue table in the database for sorting issues
+    className?: string;
+}[] = [
+    { label: "Issue", value: "title" },
+    {
+        label: "Status",
+        value: "status",
+        className: "max-md:hidden",
+    },
+    {
+        label: "Created",
+        value: "createdAt",
+        className: "max-md:hidden",
+    },
+];
+
+const tableColumnNames = columns.map((column) => column.value);
 
 type IssuesProps = {
-    status: Status | undefined;
+    searchParams: { status: Status; orderBy: keyof Issue; sort: string };
+};
+
+type IssuesPage = {
+    searchParams: { status: Status; orderBy: keyof Issue; sort: string };
 };
 
 const IssuesPage = ({ searchParams }: IssuesPage): React.JSX.Element => {
-    const statuses = Object.values(Status);
-    const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
-    const key = JSON.parse(JSON.stringify(searchParams?.status || ""));
+    const key = JSON.parse(JSON.stringify(`${searchParams?.status}, ${searchParams?.orderBy}, ${searchParams?.sort}}`));
 
     return (
         <Fragment key={key}>
@@ -33,17 +52,31 @@ const IssuesPage = ({ searchParams }: IssuesPage): React.JSX.Element => {
                 </Button>
             </section>
             <Suspense key={key} fallback={<IssuesLoadingSkeleton />}>
-                <Issues status={status} />
+                <Issues searchParams={searchParams} />
             </Suspense>
         </Fragment>
     );
 };
 
-const Issues = async ({ status }: IssuesProps): Promise<JSX.Element> => {
+const Issues = async ({ searchParams }: IssuesProps): Promise<JSX.Element> => {
+    const statuses = Object.values(Status);
+    const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
+
+    const sortDirection = searchParams.sort === "asc" ? "asc" : "desc";
+    const orderBy = tableColumnNames.includes(searchParams.orderBy)
+        ? { [searchParams.orderBy]: sortDirection }
+        : undefined;
+
     const promise = prisma.issue.findMany({
         where: {
             status,
         },
+        orderBy,
+        // orderBy: {
+        //     ...(searchParams.orderBy && {
+        //         [searchParams.orderBy]: searchParams.sort === "asc" ? "asc" : "desc",
+        //     }),
+        // },
     });
 
     return (
@@ -53,9 +86,28 @@ const Issues = async ({ status }: IssuesProps): Promise<JSX.Element> => {
                     <Table.Root variant="surface">
                         <Table.Header>
                             <Table.Row>
-                                <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-                                <Table.ColumnHeaderCell className="max-md:hidden">Status</Table.ColumnHeaderCell>
-                                <Table.ColumnHeaderCell className="max-md:hidden">Created</Table.ColumnHeaderCell>
+                                {columns.map(({ label, value, className }) => (
+                                    <Table.ColumnHeaderCell key={value} className={className}>
+                                        <Link
+                                            href={{
+                                                query: {
+                                                    ...searchParams,
+                                                    orderBy: value,
+                                                    sort: searchParams.sort === "asc" ? "desc" : "asc",
+                                                },
+                                            }}
+                                        >
+                                            {label}
+                                        </Link>
+                                        {value === searchParams.orderBy && searchParams.sort === "asc" ? (
+                                            <FaSortUp className="inline" />
+                                        ) : value === searchParams.orderBy && searchParams.sort === "desc" ? (
+                                            <FaSortDown className="inline" />
+                                        ) : (
+                                            <FaSort className="inline" />
+                                        )}
+                                    </Table.ColumnHeaderCell>
+                                ))}
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
