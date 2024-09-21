@@ -7,7 +7,7 @@ import { FaAnglesLeft, FaAnglesRight } from "react-icons/fa6";
 
 interface Props {
     itemCount: number; // total number of items
-    pageSize: number; // number of items per page
+    pageSize: number; // Rows per page or number of items per page
     currentPage: number; // current page
 }
 
