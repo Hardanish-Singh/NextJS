@@ -7,6 +7,7 @@ import prisma from "../../../prisma/client";
 import Await from "../components/Await";
 import IssueStatusBadge from "../components/IssueStatusBadge";
 import NavLink from "../components/NavLink";
+import Pagination from "../components/Pagination";
 import IssueStatusFilter from "./_components/IssueStatusFilter";
 import IssuesLoadingSkeleton from "./_components/IssuesLoadingSkeleton";
 
@@ -31,11 +32,20 @@ const columns: {
 const tableColumnNames = columns.map((column) => column.value);
 
 type Props = {
-    searchParams: { status: Status; orderBy: keyof Issue; sort: string };
+    searchParams: {
+        status: Status;
+        orderBy: keyof Issue;
+        sort: string;
+        page: string;
+    };
 };
 
 const IssuesPage = ({ searchParams }: Props): React.JSX.Element => {
-    const key = JSON.parse(JSON.stringify(`${searchParams?.status}, ${searchParams?.orderBy}, ${searchParams?.sort}}`));
+    const key = JSON.parse(
+        JSON.stringify(
+            `${searchParams?.status}, ${searchParams?.orderBy}, ${searchParams?.sort}}, ${searchParams?.page}`
+        )
+    );
 
     return (
         <Fragment key={key}>
@@ -65,61 +75,75 @@ const Issues = async ({ searchParams }: Props): Promise<JSX.Element> => {
           }
         : undefined;
 
+    const page = parseInt(searchParams.page) || 1;
+    const pageSize = 5;
+
     const promise = prisma.issue.findMany({
         where: {
             status,
         },
         orderBy,
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+    });
+
+    const totalIssues = await prisma.issue.count({
+        where: {
+            status,
+        },
     });
 
     return (
         <Await promise={promise}>
             {(props: Issue[]) => {
                 return (
-                    <Table.Root variant="surface">
-                        <Table.Header>
-                            <Table.Row>
-                                {columns.map(({ label, value, className }) => (
-                                    <Table.ColumnHeaderCell key={value} className={className}>
-                                        <Link
-                                            href={{
-                                                query: {
-                                                    ...searchParams,
-                                                    orderBy: value,
-                                                    sort: searchParams.sort === "asc" ? "desc" : "asc",
-                                                },
-                                            }}
-                                        >
-                                            {label}
-                                        </Link>
-                                        {value === searchParams.orderBy && searchParams.sort === "asc" ? (
-                                            <FaSortUp className="inline" />
-                                        ) : value === searchParams.orderBy && searchParams.sort === "desc" ? (
-                                            <FaSortDown className="inline" />
-                                        ) : (
-                                            <FaSort className="inline" />
-                                        )}
-                                    </Table.ColumnHeaderCell>
-                                ))}
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {props.map(({ id, title, status, createdAt }: Issue) => (
-                                <Table.Row key={id}>
-                                    <Table.Cell>
-                                        <NavLink href={`/issues/${id}`}>{title}</NavLink>
-                                        <section className="block md:hidden">
-                                            <IssueStatusBadge status={status} />
-                                        </section>
-                                    </Table.Cell>
-                                    <Table.Cell className="max-md:hidden">
-                                        <IssueStatusBadge status={status} />
-                                    </Table.Cell>
-                                    <Table.Cell className="max-md:hidden">{createdAt.toDateString()}</Table.Cell>
+                    <>
+                        <Table.Root variant="surface">
+                            <Table.Header>
+                                <Table.Row>
+                                    {columns.map(({ label, value, className }) => (
+                                        <Table.ColumnHeaderCell key={value} className={className}>
+                                            <Link
+                                                href={{
+                                                    query: {
+                                                        ...searchParams,
+                                                        orderBy: value,
+                                                        sort: searchParams.sort === "asc" ? "desc" : "asc",
+                                                    },
+                                                }}
+                                            >
+                                                {label}
+                                            </Link>
+                                            {value === searchParams.orderBy && searchParams.sort === "asc" ? (
+                                                <FaSortUp className="inline" />
+                                            ) : value === searchParams.orderBy && searchParams.sort === "desc" ? (
+                                                <FaSortDown className="inline" />
+                                            ) : (
+                                                <FaSort className="inline" />
+                                            )}
+                                        </Table.ColumnHeaderCell>
+                                    ))}
                                 </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table.Root>
+                            </Table.Header>
+                            <Table.Body>
+                                {props.map(({ id, title, status, createdAt }: Issue) => (
+                                    <Table.Row key={id}>
+                                        <Table.Cell>
+                                            <NavLink href={`/issues/${id}`}>{title}</NavLink>
+                                            <section className="block md:hidden">
+                                                <IssueStatusBadge status={status} />
+                                            </section>
+                                        </Table.Cell>
+                                        <Table.Cell className="max-md:hidden">
+                                            <IssueStatusBadge status={status} />
+                                        </Table.Cell>
+                                        <Table.Cell className="max-md:hidden">{createdAt.toDateString()}</Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table.Root>
+                        <Pagination pageSize={pageSize} currentPage={page} itemCount={totalIssues} />
+                    </>
                 );
             }}
         </Await>

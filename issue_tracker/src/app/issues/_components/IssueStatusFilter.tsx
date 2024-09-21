@@ -34,7 +34,7 @@ const IssueStatusFilter = (): React.JSX.Element => {
                     params.append("sort", searchParams.get("sort")!);
                 }
 
-                const query = params.size ? "?" + params.toString() : "";
+                const query = params.size ? `?${params.toString()}` : "";
                 router.push("/issues" + query);
             }}
         >
