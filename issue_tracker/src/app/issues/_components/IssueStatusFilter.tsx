@@ -24,9 +24,15 @@ const IssueStatusFilter = (): React.JSX.Element => {
             onValueChange={(status) => {
                 const params = new URLSearchParams();
 
-                if (status) params.append("status", status);
-                if (searchParams.get("orderBy")) params.append("orderBy", searchParams.get("orderBy")!);
-                if (searchParams.get("sort")) params.append("sort", searchParams.get("sort")!);
+                if (status) {
+                    params.append("status", status);
+                }
+                if (searchParams.get("orderBy")) {
+                    params.append("orderBy", searchParams.get("orderBy")!);
+                }
+                if (searchParams.get("sort")) {
+                    params.append("sort", searchParams.get("sort")!);
+                }
 
                 const query = params.size ? "?" + params.toString() : "";
                 router.push("/issues" + query);
