@@ -30,15 +30,11 @@ const columns: {
 
 const tableColumnNames = columns.map((column) => column.value);
 
-type IssuesProps = {
+type Props = {
     searchParams: { status: Status; orderBy: keyof Issue; sort: string };
 };
 
-type IssuesPage = {
-    searchParams: { status: Status; orderBy: keyof Issue; sort: string };
-};
-
-const IssuesPage = ({ searchParams }: IssuesPage): React.JSX.Element => {
+const IssuesPage = ({ searchParams }: Props): React.JSX.Element => {
     const key = JSON.parse(JSON.stringify(`${searchParams?.status}, ${searchParams?.orderBy}, ${searchParams?.sort}}`));
 
     return (
@@ -58,7 +54,7 @@ const IssuesPage = ({ searchParams }: IssuesPage): React.JSX.Element => {
     );
 };
 
-const Issues = async ({ searchParams }: IssuesProps): Promise<JSX.Element> => {
+const Issues = async ({ searchParams }: Props): Promise<JSX.Element> => {
     const statuses = Object.values(Status);
     const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
 
