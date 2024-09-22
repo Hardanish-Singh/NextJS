@@ -5,11 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { FaAnglesLeft, FaAnglesRight } from "react-icons/fa6";
 
-interface Props {
+type Props = {
     itemCount: number; // total number of items
     pageSize: number; // Rows per page or number of items per page
     currentPage: number; // current page
-}
+};
 
 const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
     const router = useRouter();
@@ -61,6 +61,30 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
             >
                 <FaAnglesRight />
             </Button>
+
+            {/* Rows per page: */}
+            <label htmlFor="rows_per_page" style={{ margin: "auto 4px" }}>
+                Rows per page:
+            </label>
+            <select
+                name="rows_per_page"
+                id="rows_per_page"
+                style={{ margin: "auto 4px", width: "50px" }}
+                onChange={(event) => {
+                    const pageSize = event.target.value !== "all" ? Number(event.target.value) : itemCount;
+                    const params = new URLSearchParams(searchParams);
+                    params.set("rowsPerPage", pageSize.toString());
+                    const query = params.size ? `?${params.toString()}` : "";
+                    router.push(`/issues${query}`);
+                }}
+                value={pageSize === itemCount ? "all" : pageSize}
+                className="border-[1px] border-black"
+            >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="all">All</option>
+            </select>
         </Flex>
     );
 };

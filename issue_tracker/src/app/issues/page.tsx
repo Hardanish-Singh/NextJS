@@ -37,6 +37,7 @@ type Props = {
         orderBy: keyof Issue;
         sort: string;
         page: string;
+        rowsPerPage: string;
     };
 };
 
@@ -76,7 +77,7 @@ const Issues = async ({ searchParams }: Props): Promise<JSX.Element> => {
         : undefined;
 
     const page = parseInt(searchParams.page) || 1;
-    const pageSize = 5; // Rows per page or number of items per page
+    const pageSize = parseInt(searchParams.rowsPerPage) || 5; // Rows per page or number of items per page
 
     const promise = prisma.issue.findMany({
         where: {
