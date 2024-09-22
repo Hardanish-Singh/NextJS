@@ -29,40 +29,8 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
         router.push(`/issues${query}`);
     };
 
-    return (
-        <Flex align="center" justify="center" gap="2" my="2">
-            <Text size="2">
-                Page {currentPage} of {pageCount}
-            </Text>
-            <Button color="gray" variant="soft" disabled={currentPage === 1} onClick={() => changePage(1)}>
-                <FaAnglesLeft />
-            </Button>
-            <Button
-                color="gray"
-                variant="soft"
-                disabled={currentPage === 1}
-                onClick={() => changePage(currentPage - 1)}
-            >
-                <FaChevronLeft />
-            </Button>
-            <Button
-                color="gray"
-                variant="soft"
-                disabled={currentPage === pageCount}
-                onClick={() => changePage(currentPage + 1)}
-            >
-                <FaChevronRight />
-            </Button>
-            <Button
-                color="gray"
-                variant="soft"
-                disabled={currentPage === pageCount}
-                onClick={() => changePage(pageCount)}
-            >
-                <FaAnglesRight />
-            </Button>
-
-            {/* Rows per page: */}
+    const rowsPerPageFragment: React.JSX.Element = (
+        <>
             <label htmlFor="rows_per_page" style={{ margin: "auto 4px" }}>
                 Rows per page:
             </label>
@@ -85,7 +53,48 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
                 <option value="15">15</option>
                 <option value="all">All</option>
             </select>
-        </Flex>
+        </>
+    );
+
+    return (
+        <>
+            <Flex align="center" justify="center" gap="2" my="2">
+                <Text size="2">
+                    Page {currentPage} of {pageCount}
+                </Text>
+                <Button color="gray" variant="soft" disabled={currentPage === 1} onClick={() => changePage(1)}>
+                    <FaAnglesLeft />
+                </Button>
+                <Button
+                    color="gray"
+                    variant="soft"
+                    disabled={currentPage === 1}
+                    onClick={() => changePage(currentPage - 1)}
+                >
+                    <FaChevronLeft />
+                </Button>
+                <Button
+                    color="gray"
+                    variant="soft"
+                    disabled={currentPage === pageCount}
+                    onClick={() => changePage(currentPage + 1)}
+                >
+                    <FaChevronRight />
+                </Button>
+                <Button
+                    color="gray"
+                    variant="soft"
+                    disabled={currentPage === pageCount}
+                    onClick={() => changePage(pageCount)}
+                >
+                    <FaAnglesRight />
+                </Button>
+                <section className="max-md:hidden">{rowsPerPageFragment}</section>
+            </Flex>
+            <Flex align="center" justify="center" gap="2" my="2">
+                <section className="md:hidden">{rowsPerPageFragment}</section>
+            </Flex>
+        </>
     );
 };
 
