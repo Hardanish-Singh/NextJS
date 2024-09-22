@@ -18,6 +18,7 @@ const statuses: Array<{
 const IssueStatusFilter = (): React.JSX.Element => {
     const router = useRouter();
     const searchParams = useSearchParams();
+
     return (
         <Select.Root
             value={searchParams.get("status") || ""}
