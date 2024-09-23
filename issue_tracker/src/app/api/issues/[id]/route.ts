@@ -31,7 +31,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
             status: 400,
         });
     }
-    // check if valid user id
+    // Check if the user id is valid
     if (assignedToUserId) {
         const user = await prisma.user.findUnique({
             where: { id: assignedToUserId },
@@ -84,6 +84,14 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 }
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+    const body = await request.json();
+    const { session } = body;
+    if (!session) {
+        return NextResponse.json({
+            data: "You are not authenticated to perform this action!",
+            status: 401,
+        });
+    }
     try {
         const issue = await prisma.issue.findUnique({
             where: { id: Number(params.id) },
