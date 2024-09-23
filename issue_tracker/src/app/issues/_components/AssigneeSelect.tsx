@@ -2,6 +2,7 @@
 
 import { Issue, User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
+import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -32,7 +33,8 @@ const AssigneeSelect = ({ issue }: Props) => {
         fetchUsers();
     }, []);
 
-    const onValueChange = (userId: any) => {
+    const onValueChange = async (userId: any) => {
+        const session = await getSession();
         try {
             fetch(`http://localhost:3000/api/issues/${issue.id}`, {
                 method: "PATCH",
@@ -42,6 +44,7 @@ const AssigneeSelect = ({ issue }: Props) => {
                 },
                 body: JSON.stringify({
                     assignedToUserId: userId === "unassigned" ? null : userId,
+                    session,
                 }),
                 cache: "no-cache",
             });

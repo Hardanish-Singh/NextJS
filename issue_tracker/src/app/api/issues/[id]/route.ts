@@ -4,7 +4,16 @@ import prisma from "../../../../../prisma/client";
 
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
     const body = await request.json();
-    const { title, description, assignedToUserId } = body;
+    const { title, description, assignedToUserId, session } = body;
+    if (!session) {
+        return NextResponse.json({
+            data: {
+                title: "",
+                description: "You are not authenticated to perform this action!",
+            },
+            status: 401,
+        });
+    }
     // Check if description is empty and return error message if it is
     if (description && description.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
         return NextResponse.json({
@@ -29,7 +38,10 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
         });
         if (!user) {
             return NextResponse.json({
-                data: "Invalid User",
+                data: {
+                    title: "",
+                    description: "Invalid Issue",
+                },
                 status: 404,
             });
         }
