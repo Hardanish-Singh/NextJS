@@ -4,7 +4,14 @@ import prisma from "../../../../prisma/client";
 
 export async function POST(request: NextRequest) {
     const body = await request.json();
-    const { title, description } = body;
+    const { title, description, session } = body;
+    // Check if the user is authenticated
+    if (!session) {
+        return NextResponse.json({
+            data: "You are not authenticated to perform this action!",
+            status: 401,
+        });
+    }
     // Check if description is empty and return error message if it is
     if (description.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
         return NextResponse.json({

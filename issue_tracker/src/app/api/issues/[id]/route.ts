@@ -5,6 +5,7 @@ import prisma from "../../../../../prisma/client";
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
     const body = await request.json();
     const { title, description, assignedToUserId, session } = body;
+    // Check if the user is authenticated and has permission to edit the issue
     if (!session) {
         return NextResponse.json({
             data: {
@@ -40,7 +41,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
             return NextResponse.json({
                 data: {
                     title: "",
-                    description: "Invalid Issue",
+                    description: "Invalid User",
                 },
                 status: 404,
             });
@@ -86,6 +87,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     const body = await request.json();
     const { session } = body;
+    // Check if the user is authenticated and has permission to delete the issue
     if (!session) {
         return NextResponse.json({
             data: "You are not authenticated to perform this action!",
