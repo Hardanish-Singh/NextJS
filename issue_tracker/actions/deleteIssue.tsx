@@ -4,12 +4,14 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 type deleteIssue = {
-    error: string;
+    error: {
+        message: string;
+    };
 };
 
 export const deleteIssue = async (id: number): Promise<deleteIssue> => {
     const session = await auth();
-    const response = await fetch(`http://localhost:3000/api/issues/${id}`, {
+    const response = await fetch(`${process.env.AUTH_TRUST_HOST}/api/issues/${id}`, {
         method: "DELETE",
         headers: {
             "Content-type": "application/json",
@@ -25,7 +27,9 @@ export const deleteIssue = async (id: number): Promise<deleteIssue> => {
         redirect("/issues");
     } else {
         return {
-            error: result.data,
+            error: {
+                message: result?.data?.message,
+            },
         };
     }
 };

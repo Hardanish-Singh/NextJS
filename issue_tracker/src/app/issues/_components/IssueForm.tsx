@@ -1,4 +1,5 @@
 "use client";
+
 import Spinner from "@/app/components/Spinner";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +18,7 @@ type Props = {
     issue?: Issue;
 };
 
-const IssueForm = ({ issue }: Props): React.JSX.Element => {
+const IssueForm: React.FC<Props> = ({ issue }: Props): React.JSX.Element => {
     // Form validation using React Hook Form
     const {
         register,
@@ -33,6 +34,7 @@ const IssueForm = ({ issue }: Props): React.JSX.Element => {
     const [error, setError] = useState({
         title: "",
         description: "",
+        message: "",
     });
 
     // Form onSubmit Handler
@@ -41,8 +43,7 @@ const IssueForm = ({ issue }: Props): React.JSX.Element => {
         if (result?.error) {
             setError((err) => ({
                 ...err,
-                title: result.error.title,
-                description: result.error.description,
+                message: result?.error?.message,
             }));
         }
     };
@@ -50,31 +51,14 @@ const IssueForm = ({ issue }: Props): React.JSX.Element => {
     return (
         <form className="max-w-xl space-y-3" onSubmit={handleSubmit(onSubmit)}>
             <TextField.Root placeholder="Title" {...register("title")}></TextField.Root>
-            {errors.title && (
-                <Text color="red" as="p">
-                    {errors.title.message}
-                </Text>
-            )}
-            {error.title && (
-                <Text color="red" as="p">
-                    {error.title}
-                </Text>
-            )}
+            {errors?.title?.message && <ErrorMessage errorMessage={errors?.title?.message} />}
             <Controller
                 name="description"
                 control={control}
                 render={({ field }) => <RichTextEditor placeholder="Description" {...field} />}
             />
-            {errors.description && (
-                <Text color="red" as="p">
-                    {errors?.description?.message}
-                </Text>
-            )}
-            {error.description && (
-                <Text color="red" as="p">
-                    {error.description}
-                </Text>
-            )}
+            {errors?.description?.message && <ErrorMessage errorMessage={errors?.description?.message} />}
+            {error?.message && <ErrorMessage errorMessage={error?.message} />}
             <Button disabled={isSubmitting}>
                 {issue ? "Edit Issue" : "Submit New Issue"}
                 {isSubmitting && <Spinner />}
@@ -82,5 +66,11 @@ const IssueForm = ({ issue }: Props): React.JSX.Element => {
         </form>
     );
 };
+
+const ErrorMessage = ({ errorMessage }: { errorMessage: string }): React.JSX.Element => (
+    <Text color="red" as="p">
+        {errorMessage}
+    </Text>
+);
 
 export default IssueForm;

@@ -3,33 +3,27 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../prisma/client";
 
 export async function POST(request: NextRequest) {
-    const body = await request.json();
-    const { title, description, session } = body;
-    // Check if the user is authenticated
-    if (!session) {
-        return NextResponse.json({
-            data: "You are not authenticated to perform this action!",
-            status: 401,
-        });
-    }
-    // Check if description is empty and return error message if it is
-    if (description.replace(/<(.|\n)*?>/g, "").trim().length === 0) {
-        return NextResponse.json({
-            data: {
-                title: "",
-                description: "Description is required",
-            },
-            status: 400,
-        });
-    }
-    const validation = createIssueSchema.safeParse(body);
-    if (!validation.success) {
-        return NextResponse.json({
-            data: validation.error.format(),
-            status: 400,
-        });
-    }
     try {
+        const body = await request.json();
+        const { title, description, session } = body;
+        // Check if the user is authenticated and has permission to create a new issue
+        if (!session) {
+            return NextResponse.json({
+                data: {
+                    message: "You are not authenticated to perform this action!",
+                },
+                status: 401,
+            });
+        }
+        // Validate the input data using zod schema
+        const validation = createIssueSchema.safeParse(body);
+        if (!validation.success) {
+            return NextResponse.json({
+                data: validation.error.format(),
+                status: 400,
+            });
+        }
+        // Create a new issue in the database and return the created issue
         const newIssue = await prisma.issue.create({
             data: {
                 title,
@@ -44,8 +38,7 @@ export async function POST(request: NextRequest) {
         console.error("Error during creation of an issue", err);
         return NextResponse.json({
             data: {
-                title: "",
-                description: "Error during creation of an issue",
+                message: "Error during creation of an issue",
             },
             status: 500,
         });

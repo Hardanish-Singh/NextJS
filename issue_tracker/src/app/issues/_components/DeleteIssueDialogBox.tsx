@@ -12,11 +12,12 @@ type Props = {
 const DeleteIssueDialogBox = ({ id }: Props): React.JSX.Element => {
     const [error, setError] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
     const clientAction = async () => {
         try {
             setIsSubmitting(true);
             const result = await deleteIssue(id);
-            if (result.error) {
+            if (result.error.message) {
                 setError(true);
             }
         } catch (err) {

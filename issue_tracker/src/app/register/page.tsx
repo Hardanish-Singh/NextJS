@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import toast from "react-hot-toast";
 
-const Register = () => {
+const Register: React.FC = (): React.JSX.Element => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
-    const registerUser = async (formData: FormData) => {
+
+    const registerUser = async (formData: FormData): Promise<void> => {
         const name = formData.get("name");
         const email = formData.get("email");
         const password = formData.get("password");
-        const response = await fetch("http://localhost:3000/api/register", {
+        const response = await fetch(`${process.env.AUTH_TRUST_HOST}/api/register`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",

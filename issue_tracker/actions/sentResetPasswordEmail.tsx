@@ -4,20 +4,32 @@ const nodemailer = require("nodemailer");
 const crypto = require("crypto");
 import prisma from "../prisma/client";
 
-const sentResetPasswordEmail = async (email: string) => {
+type sentResetPasswordEmailReturnType = {
+    success: boolean;
+    message: string;
+};
+
+const sentResetPasswordEmail = async (email: string): Promise<sentResetPasswordEmailReturnType> => {
     const token = crypto.randomBytes(20).toString("hex") as string;
 
-    // check if email exists in the database
-    const emailExist = await prisma.user.findUnique({
-        where: {
-            email,
-        },
-    });
-
-    if (!emailExist) {
+    try {
+        // check if email exists in the database
+        const emailExist = await prisma.user.findUnique({
+            where: {
+                email,
+            },
+        });
+        if (!emailExist) {
+            return {
+                success: false,
+                message: "Email not found",
+            };
+        }
+    } catch (err) {
+        console.error("Error fetching user from database", err);
         return {
             success: false,
-            message: "Email not found",
+            message: "Error fetching user from database",
         };
     }
 

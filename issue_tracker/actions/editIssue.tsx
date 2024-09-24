@@ -5,14 +5,13 @@ import { redirect } from "next/navigation";
 
 type editIssue = {
     error: {
-        title: any;
-        description: any;
+        message: string;
     };
 };
 
 export const editIssue = async (title: string, description: any, id: number): Promise<editIssue> => {
     const session = await auth();
-    const response = await fetch(`http://localhost:3000/api/issues/${id}`, {
+    const response = await fetch(`${process.env.AUTH_TRUST_HOST}/api/issues/${id}`, {
         method: "PATCH",
         headers: {
             "Content-type": "application/json",
@@ -25,8 +24,7 @@ export const editIssue = async (title: string, description: any, id: number): Pr
     if (result.status != 201) {
         return {
             error: {
-                title: result?.data?.title || "",
-                description: result?.data?.description || "",
+                message: result?.data?.message || "",
             },
         };
     } else {

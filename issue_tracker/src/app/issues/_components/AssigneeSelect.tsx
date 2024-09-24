@@ -10,13 +10,13 @@ type Props = {
     issue: Issue;
 };
 
-const AssigneeSelect = ({ issue }: Props) => {
+const AssigneeSelect: React.FC<Props> = ({ issue }: Props): React.JSX.Element => {
     const [users, setUsers] = useState<User[]>([]);
 
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const response = await fetch("http://localhost:3000/api/users", {
+                const response = await fetch(`${process.env.AUTH_TRUST_HOST}/api/users`, {
                     method: "GET",
                     headers: {
                         "Content-type": "application/json",
@@ -36,7 +36,7 @@ const AssigneeSelect = ({ issue }: Props) => {
     const onValueChange = async (userId: any) => {
         const session = await getSession();
         try {
-            fetch(`http://localhost:3000/api/issues/${issue.id}`, {
+            fetch(`${process.env.AUTH_TRUST_HOST}/api/issues/${issue.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-type": "application/json",
@@ -53,6 +53,7 @@ const AssigneeSelect = ({ issue }: Props) => {
             toast.error("Changes could not be saved");
         }
     };
+
     return (
         <Select.Root
             defaultValue={!issue.assignedToUserId ? "unassigned" : issue.assignedToUserId}
