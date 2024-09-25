@@ -16,7 +16,7 @@ const AssigneeSelect: React.FC<Props> = ({ issue }: Props): React.JSX.Element =>
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const response = await fetch(`${process.env.AUTH_TRUST_HOST}/api/users`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users`, {
                     method: "GET",
                     headers: {
                         "Content-type": "application/json",
@@ -36,7 +36,7 @@ const AssigneeSelect: React.FC<Props> = ({ issue }: Props): React.JSX.Element =>
     const onValueChange = async (userId: any) => {
         const session = await getSession();
         try {
-            fetch(`${process.env.AUTH_TRUST_HOST}/api/issues/${issue.id}`, {
+            fetch(`${process.env.NEXT_PUBLIC_URL}/api/issues/${issue.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-type": "application/json",

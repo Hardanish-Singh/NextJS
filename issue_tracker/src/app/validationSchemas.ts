@@ -13,13 +13,14 @@ export const createIssueSchema = z.object({
 });
 
 export const editIssueSchema = z.object({
-    title: z.string().min(1, "Title is required").max(255),
+    title: z.string().min(1, "Title is required").max(255).optional(),
     // prettier-ignore
     description: z
                   .string()
                   .trim()
                   .transform((value) => (value.replace(regex, "").trim().length === 0 ? "" : value))
-                  .pipe(z.string().min(1, "Description is required")),
+                  .pipe(z.string().min(1, "Description is required"))
+                  .optional(),
     // prettier-ignore
     assignedToUserId: z
                         .string()
