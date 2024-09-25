@@ -5,7 +5,7 @@ import prisma from "../../../../../prisma/client";
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
     try {
         const body = await request.json();
-        const { title, description, assignedToUserId, session } = body;
+        const { title, description, assignedToUserId, status, session } = body;
         // Check if the user is authenticated and has permission to edit the issue
         if (!session) {
             return NextResponse.json({
@@ -23,8 +23,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
                 status: 400,
             });
         }
-        // Check if the user id is valid
+        // Check if assignedToUserId is present in the body
         if (assignedToUserId) {
+            // Check if the user is valid user
             const user = await prisma.user.findUnique({
                 where: { id: assignedToUserId },
             });
@@ -56,6 +57,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
                 title,
                 description,
                 assignedToUserId,
+                status,
             },
         });
         return NextResponse.json({

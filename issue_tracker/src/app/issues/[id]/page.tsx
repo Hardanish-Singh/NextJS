@@ -6,6 +6,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import prisma from "../../../../prisma/client";
 import AssigneeSelect from "../_components/AssigneeSelect";
 import DeleteIssueDialogBox from "../_components/DeleteIssueDialogBox";
+import IssueSelect from "../_components/IssueSelect";
 import RichTextReadEditor from "../_components/RichTextReadEditor";
 
 type Props = {
@@ -41,6 +42,7 @@ const IssueDetailPage = async ({ params: { id } }: Props): Promise<JSX.Element> 
             {session && (
                 <Box>
                     <Flex direction="column" gap="4">
+                        <IssueSelect status={issue.status} id={issue.id} />
                         <AssigneeSelect issue={issue} />
                         <Button>
                             <FaPencilAlt />

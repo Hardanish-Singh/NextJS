@@ -1,3 +1,4 @@
+import { Status } from "@prisma/client";
 import { z } from "zod";
 
 const regex = new RegExp(/<(.|\n)*?>/g);
@@ -28,6 +29,7 @@ export const editIssueSchema = z.object({
                         .max(255)
                         .optional()
                         .nullable(),
+    status: z.enum([Status.OPEN, Status.IN_PROGRESS, Status.CLOSED]).optional().nullable(),
 });
 
 export const registerUserSchema = z.object({
