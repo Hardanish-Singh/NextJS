@@ -7,12 +7,13 @@ export async function POST(request: NextRequest) {
         const body = await request.json();
         const { title, description, session } = body;
         // Check if the user is authenticated and has permission to create a new issue
-        if (!session) {
+        const user = await prisma.user.findFirst({ where: { id: session.user.id } });
+        if (!user) {
             return NextResponse.json({
                 data: {
                     message: "You are not authenticated to perform this action!",
                 },
-                status: 401,
+                status: 404,
             });
         }
         // Validate the input data using zod schema
