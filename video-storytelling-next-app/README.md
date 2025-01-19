@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 2. All the API Routes are under _src/app/api_
 3. All the Server Actions are under _/actions_
 4. All the Components are under _/src/app/components_
-5. The Project Next Auth v5 beta version for Authentication ( JWT Strategy )
+5. The Project uses Next Auth v5 beta version for Authentication ( JWT Strategy )
 6. I am using bcryptjs for hashing the password, React Toast for showing notification, Zod for schema validations and Prisma ORM with SQLite DB.
 7. when we visit home page [http://localhost:3000](http://localhost:3000), <br/>
    a. if the user is not authenticated, it will automatically redirect to /login page/route <br/>
