@@ -14,7 +14,7 @@ const Register: React.FC = (): React.JSX.Element => {
         const name = formData.get("name");
         const email = formData.get("email");
         const password = formData.get("password");
-        const response = await fetch(`${process.env.AUTH_TRUST_HOST}/api/register`, {
+        const response = await fetch(`http://localhost:3000/api/register`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
