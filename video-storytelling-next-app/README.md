@@ -35,4 +35,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
    b. if the user is not registered, there is an option to register/sign up which will redirect to /register page/route, the api route for this is [/api/register] <br/>
    c. if the user forgot its password, there is an option to reset the password which will redirect to /reset page/route which uses server action. <br/>
    d. After successful authentication, user goes to home page where can play videos. <br/>
-8. I am React Player for showing Vidoes/Audios which are hardcoded in the code at the moment.
+8. I am using React Player for showing Vidoes/Audios which are hardcoded in the code at the moment.
