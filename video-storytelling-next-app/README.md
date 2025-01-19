@@ -30,9 +30,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 4. All the Components are under _/src/app/components_
 5. The Project Next Auth v5 beta version for Authentication ( JWT Strategy )
 6. I am using bcryptjs for hashing the password, React Toast for showing notification, Zod for schema validations and Prisma ORM with SQLite DB.
-7. when we visit home page [http://localhost:3000](http://localhost:3000),
-   a. if the user is not authenticated, it will automatically redirect to /login page/route
-   b. if the user is not registered, there is an option to register/sign up which will redirect to /register page/route, the api route for this is [/api/register]
-   c. if the user forgot its password, there is an option to reset the password which will redirect to /reset page/route which uses server action.
-   d. After successful authentication, user goes to home page where can play videos.
+7. when we visit home page [http://localhost:3000](http://localhost:3000), <br/>
+   a. if the user is not authenticated, it will automatically redirect to /login page/route <br/>
+   b. if the user is not registered, there is an option to register/sign up which will redirect to /register page/route, the api route for this is [/api/register] <br/>
+   c. if the user forgot its password, there is an option to reset the password which will redirect to /reset page/route which uses server action. <br/>
+   d. After successful authentication, user goes to home page where can play videos. <br/>
 8. I am React Player for showing Vidoes/Audios which are hardcoded in the code at the moment.
