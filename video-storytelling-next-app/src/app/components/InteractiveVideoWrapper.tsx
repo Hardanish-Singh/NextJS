@@ -27,7 +27,9 @@ const InteractiveVideoWrapper: React.FC = (): React.JSX.Element => {
 
     return (
         <>
-            <h1 className="text-center">List of Youtube Vidoes</h1>
+            <h1 className="text-center">
+                List of Youtube Videos ( Please Click on the name for the video to begin playing )
+            </h1>
             {selectedVideo && (
                 <div className="text-center">Currently Playing Video: {YoutubeVideos[selectedVideo - 1]?.title} </div>
             )}
