@@ -13,9 +13,9 @@ const InteractiveVideoPlayer: React.FC<Props> = ({ url }: Props): React.JSX.Elem
         width="100%"
         stopOnUnmount
         playing={true} // By default, video will play
-        onPause={() => console.log("PAUSED")}
-        onPlay={() => console.log("PLAYING")}
-        onEnded={() => console.log("ENDED")}
+        onPause={() => console.log("VIDEO PAUSED")}
+        onPlay={() => console.log("VIDEO PLAYING")}
+        onEnded={() => console.log("VIDEO ENDED")}
     />
 );
 
