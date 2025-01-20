@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 const SignIn: React.FC = (): React.JSX.Element => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
+
     const signInUser = (formData: FormData) => {
         const email = formData.get("email");
         const password = formData.get("password");
