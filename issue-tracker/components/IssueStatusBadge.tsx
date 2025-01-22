@@ -13,10 +13,8 @@ const statusMap: Record<Status, { label: string; color: Color }> = {
     CLOSED: { label: "Closed", color: "green" },
 };
 
-const IssueStatusBadge = ({ status }: Props) => {
-    return (
-        <Badge color={statusMap[status].color}>{statusMap[status].label}</Badge>
-    );
-};
+const IssueStatusBadge: React.FC<Props> = ({ status }: Props): React.JSX.Element => (
+    <Badge color={statusMap[status].color}>{statusMap[status].label}</Badge>
+);
 
 export default IssueStatusBadge;
