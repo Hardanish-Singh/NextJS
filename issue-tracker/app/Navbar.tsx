@@ -18,7 +18,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaBug } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar: React.FC = (): React.JSX.Element => {
     const { status, data: session } = useSession();
     const currentPath = usePathname();
     const links = [
@@ -31,6 +31,7 @@ const Navbar = () => {
             href: "/issues",
         },
     ];
+
     return (
         <nav className="border-b mb-5 px-5 py-3">
             <Flex justify="between">
