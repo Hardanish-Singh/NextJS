@@ -18,7 +18,7 @@ type Props = {
     searchParams: { status: Status };
 };
 
-const Issues = async ({ searchParams }: Props) => {
+const Issues: React.FC<Props> = async ({ searchParams }: Props) => {
     const statuses = Object.values(Status);
     const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
     const issues = await prisma.issue.findMany({
