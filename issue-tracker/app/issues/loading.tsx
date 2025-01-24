@@ -1,4 +1,4 @@
-const Loading = () => (
+const Loading: React.FC = (): React.JSX.Element => (
     <>
         <ul className="max-w-md space-y-2 text-gray-500 list-inside dark:text-gray-400">
             <li className="flex items-center">
