@@ -1,15 +1,7 @@
 import authOptions from "@/app/auth/authOptions";
 import IssueStatusBadge from "@/components/IssueStatusBadge";
 import prisma from "@/prisma/client";
-import {
-    Box,
-    Button,
-    Flex,
-    Grid,
-    Heading,
-    ScrollArea,
-    Text,
-} from "@radix-ui/themes";
+import { Box, Button, Flex, Grid, Heading, ScrollArea, Text } from "@radix-ui/themes";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,7 +13,7 @@ type Props = {
     params: { id: number };
 };
 
-const IssueDetailPage = async ({ params: { id } }: Props) => {
+const IssueDetailPage: React.FC<Props> = async ({ params: { id } }: Props) => {
     id = Number(id);
     if (isNaN(id)) {
         notFound();
