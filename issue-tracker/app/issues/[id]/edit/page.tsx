@@ -6,7 +6,7 @@ type Props = {
     params: { id: number };
 };
 
-const EditIssuePage = async ({ params: { id } }: Props) => {
+const EditIssuePage: React.FC<Props> = async ({ params: { id } }: Props) => {
     id = Number(id);
     if (isNaN(id)) {
         notFound();
