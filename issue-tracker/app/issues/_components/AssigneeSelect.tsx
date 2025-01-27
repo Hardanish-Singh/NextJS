@@ -7,7 +7,7 @@ type Props = {
     issue: Issue;
 };
 
-const AssigneeSelect: React.FC<Props> = async ({ issue }: Props): Promise<JSX.Element> => {
+const AssigneeSelect: React.FC<Props> = async ({ issue }: Props): Promise<JSX.Element | null> => {
     let users: User[] = [];
     try {
         const response = await fetch("http://localhost:3000/api/users", {
