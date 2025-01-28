@@ -1,4 +1,5 @@
 "use client";
+
 import { deleteIssue } from "@/actions/deleteIssue";
 import Spinner from "@/components/Spinner";
 import {
@@ -38,8 +39,7 @@ const DeleteIssueDialogBox = ({ id }: { id: number }) => {
                 <AlertDialogContent>
                     <AlertDialogTitle>Confirm Deletion</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Are you sure you want to delete the issue? This action
-                        cannot be undone
+                        Are you sure you want to delete the issue? This action cannot be undone
                     </AlertDialogDescription>
                     <Flex mt="4" gap="3">
                         <AlertDialogCancel>
@@ -58,15 +58,8 @@ const DeleteIssueDialogBox = ({ id }: { id: number }) => {
             <AlertDialogRoot open={error}>
                 <AlertDialogContent>
                     <AlertDialogTitle>Error</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        Error during deletion of an issue
-                    </AlertDialogDescription>
-                    <Button
-                        variant="soft"
-                        color="gray"
-                        mt="2"
-                        onClick={() => setError(false)}
-                    >
+                    <AlertDialogDescription>Error during deletion of an issue</AlertDialogDescription>
+                    <Button variant="soft" color="gray" mt="2" onClick={() => setError(false)}>
                         OK
                     </Button>
                 </AlertDialogContent>
