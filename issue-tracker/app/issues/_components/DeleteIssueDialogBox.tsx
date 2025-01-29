@@ -19,7 +19,7 @@ type Props = {
     id: number;
 };
 
-const DeleteIssueDialogBox = ({ id }: { id: number }) => {
+const DeleteIssueDialogBox = ({ id }: Props) => {
     const [error, setError] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const clientAction = async () => {
