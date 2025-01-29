@@ -19,7 +19,7 @@ type Props = {
     id: number;
 };
 
-const DeleteIssueDialogBox: React.FC<Props> = ({ id }: Props) => {
+const DeleteIssueDialogBox: React.FC<Props> = ({ id }: Props): React.JSX.Element => {
     const [error, setError] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const clientAction = async () => {
