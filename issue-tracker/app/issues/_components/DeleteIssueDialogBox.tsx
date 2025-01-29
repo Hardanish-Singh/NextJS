@@ -15,6 +15,10 @@ import {
 } from "@radix-ui/themes";
 import { useState } from "react";
 
+type Props = {
+    id: number;
+};
+
 const DeleteIssueDialogBox = ({ id }: { id: number }) => {
     const [error, setError] = useState<boolean>(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
