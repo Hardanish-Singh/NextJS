@@ -12,7 +12,7 @@ type Props = {
     issue?: Issue;
 };
 
-const IssueForm = ({ issue }: Props) => {
+const IssueForm: React.FC<Props> = ({ issue }: Props): React.JSX.Element => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState({
         title: "",
