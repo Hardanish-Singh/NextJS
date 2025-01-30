@@ -1,12 +1,8 @@
 import { Text } from "@radix-ui/themes";
-import { PropsWithChildren } from "react";
 
-const ErrorMessage: React.FC = ({ children }: PropsWithChildren) => {
-    return !children ? null : (
-        <Text color="red" as="p">
-            {children}
-        </Text>
-    );
-};
-
+const ErrorMessage = ({ errorMessage }: { errorMessage: string }): React.JSX.Element => (
+    <Text color="red" as="p">
+        {errorMessage}
+    </Text>
+);
 export default ErrorMessage;

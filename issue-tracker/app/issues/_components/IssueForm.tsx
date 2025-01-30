@@ -43,14 +43,14 @@ const IssueForm = ({ issue }: Props) => {
                         name="title"
                     ></TextFieldInput>
                 </TextFieldRoot>
-                <ErrorMessage>{error.title}</ErrorMessage>
+                {error.title && <ErrorMessage errorMessage={error.title}></ErrorMessage>}
                 <TextArea
                     defaultValue={error.description ? "" : issue?.description}
                     placeholder="Description"
                     size="3"
                     name="description"
                 ></TextArea>
-                <ErrorMessage>{error.description}</ErrorMessage>
+                {error.description && <ErrorMessage errorMessage={error.description}></ErrorMessage>}
                 <Button type="submit" disabled={isSubmitting}>
                     {issue ? "Edit Issue" : "Submit New Issue"}
                     {isSubmitting && <Spinner />}
