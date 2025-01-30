@@ -1,15 +1,11 @@
 "use client";
+
 import { addIssue } from "@/actions/addIssue";
 import { editIssue } from "@/actions/editIssue";
 import ErrorMessage from "@/components/ErrorMessage";
 import Spinner from "@/components/Spinner";
 import { Issue } from "@prisma/client";
-import {
-    Button,
-    TextArea,
-    TextFieldInput,
-    TextFieldRoot,
-} from "@radix-ui/themes";
+import { Button, TextArea, TextFieldInput, TextFieldRoot } from "@radix-ui/themes";
 import { useRef, useState } from "react";
 
 type Props = {
@@ -25,9 +21,7 @@ const IssueForm = ({ issue }: Props) => {
     const ref = useRef<HTMLFormElement>(null);
     const clientAction = async (formData: FormData) => {
         setIsSubmitting(true);
-        const result = !issue
-            ? await addIssue(formData)
-            : await editIssue(formData, issue?.id);
+        const result = !issue ? await addIssue(formData) : await editIssue(formData, issue?.id);
         ref.current?.reset();
         if (result?.error) {
             setError((err) => ({
