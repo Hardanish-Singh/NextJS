@@ -13,7 +13,7 @@ const statuses: Array<{
     { label: "Closed", value: "CLOSED" },
 ];
 
-const IssueStatusFilter: React.FC = () => {
+const IssueStatusFilter: React.FC = (): React.JSX.Element => {
     const router = useRouter();
     return (
         <Select.Root
