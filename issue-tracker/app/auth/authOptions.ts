@@ -47,10 +47,7 @@ const authOptions: NextAuthOptions = {
                     throw new Error("User does not exists");
                 }
                 // check to see if passwords match
-                const passwordMatch = await bcrypt.compare(
-                    credentials?.password,
-                    user?.password
-                );
+                const passwordMatch = await bcrypt.compare(credentials?.password, user?.password);
                 if (!passwordMatch) {
                     throw new Error("Incorrect Password");
                 } else {
