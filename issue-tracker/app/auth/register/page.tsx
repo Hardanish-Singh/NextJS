@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import { toast } from "react-hot-toast";
 
-const Register = () => {
+const Register: React.FC = (): React.JSX.Element => {
     const ref = useRef<HTMLFormElement>(null);
 
     const registerUser = async (formData: FormData) => {
