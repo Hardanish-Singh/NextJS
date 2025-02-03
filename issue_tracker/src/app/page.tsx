@@ -1,5 +1,3 @@
-const Home = (): React.JSX.Element => {
-    return <div>Hello World</div>;
-};
+const Home: React.FC = (): React.JSX.Element => <div>Hello World</div>;
 
 export default Home;
