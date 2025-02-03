@@ -23,7 +23,7 @@ const links: Array<{
     },
 ];
 
-const Navbar = (): React.JSX.Element => {
+const Navbar: React.FC = (): React.JSX.Element => {
     const { status, data: session } = useSession();
     const currentPath = usePathname(); // usePathname is used for getting the current path
 
