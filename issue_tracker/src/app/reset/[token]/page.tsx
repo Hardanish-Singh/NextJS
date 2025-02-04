@@ -9,7 +9,7 @@ type Props = {
     params: { token: string };
 };
 
-const ResetPassword: React.FC<Props> = ({ params }: Props) => {
+const ResetPassword: React.FC<Props> = ({ params }: Props): React.JSX.Element => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
 
