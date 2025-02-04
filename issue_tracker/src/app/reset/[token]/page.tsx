@@ -5,7 +5,11 @@ import { useRef } from "react";
 import toast from "react-hot-toast";
 import resetPassword from "../../../../actions/resetPassword";
 
-const ResetPassword = ({ params }: { params: { token: string } }) => {
+type Props = {
+    params: { token: string };
+};
+
+const ResetPassword: React.FC<Props> = ({ params }: Props) => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
 
