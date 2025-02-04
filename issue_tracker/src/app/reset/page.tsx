@@ -5,7 +5,7 @@ import { useRef } from "react";
 import toast from "react-hot-toast";
 import sentResetPasswordEmail from "../../../actions/sentResetPasswordEmail";
 
-const Reset = () => {
+const Reset: React.FC = (): React.JSX.Element => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
 
