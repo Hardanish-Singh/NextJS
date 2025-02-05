@@ -3,7 +3,7 @@
 import { Button } from "@radix-ui/themes";
 import { signOut } from "next-auth/react";
 
-const SignOut = () => (
+const SignOut: React.FC = () => (
     <Button
         onClick={async () => {
             await signOut({
