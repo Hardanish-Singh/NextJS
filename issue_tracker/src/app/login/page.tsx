@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { toast } from "react-hot-toast";
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
     const router = useRouter();
     const ref = useRef<HTMLFormElement>(null);
 
