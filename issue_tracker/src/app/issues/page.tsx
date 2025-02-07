@@ -41,7 +41,7 @@ type Props = {
     };
 };
 
-const IssuesPage = ({ searchParams }: Props): React.JSX.Element => {
+const IssuesPage: React.FC<Props> = ({ searchParams }: Props): React.JSX.Element => {
     const key = JSON.parse(
         JSON.stringify(
             `${searchParams?.status}, ${searchParams?.orderBy}, ${searchParams?.sort}}, ${searchParams?.page}`
