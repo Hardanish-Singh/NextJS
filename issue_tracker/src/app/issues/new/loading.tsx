@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 
-const LoadingNewIssue = () => {
+const LoadingNewIssue: React.FC = (): React.JSX.Element => {
     return (
         <form className="max-w-xl space-y-3">
             <Skeleton />
