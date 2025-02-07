@@ -1,6 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 
-export default function LoadingNewIssue() {
+const LoadingNewIssue = () => {
     return (
         <form className="max-w-xl space-y-3">
             <Skeleton />
@@ -8,4 +8,6 @@ export default function LoadingNewIssue() {
             <Skeleton />
         </form>
     );
-}
+};
+
+export default LoadingNewIssue;
