@@ -13,7 +13,7 @@ type Props = {
     params: { id: number };
 };
 
-const IssueDetailPage = async ({ params: { id } }: Props): Promise<JSX.Element> => {
+const IssueDetailPage: React.FC<Props> = async ({ params: { id } }: Props): Promise<JSX.Element> => {
     id = Number(id);
     if (isNaN(id)) {
         notFound();
