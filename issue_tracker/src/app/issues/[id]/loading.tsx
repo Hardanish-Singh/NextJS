@@ -1,7 +1,7 @@
 import { Box, Card, Flex, Grid } from "@radix-ui/themes";
 import Skeleton from "react-loading-skeleton";
 
-const LoadingIssuesById = () => (
+const LoadingIssuesById: React.FC = () => (
     <Grid columns={{ initial: "1", sm: "5" }} gap="5">
         <Box className="md:col-span-4">
             <Skeleton />
