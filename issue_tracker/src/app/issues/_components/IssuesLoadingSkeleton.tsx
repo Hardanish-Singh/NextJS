@@ -1,7 +1,7 @@
 import { Table } from "@radix-ui/themes";
 import Skeleton from "react-loading-skeleton";
 
-const IssuesLoadingSkeleton: React.FC = () => (
+const IssuesLoadingSkeleton: React.FC = (): React.JSX.Element => (
     <Table.Root variant="surface">
         <Table.Header>
             <Table.Row>
