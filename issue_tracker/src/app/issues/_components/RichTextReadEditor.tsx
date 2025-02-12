@@ -8,7 +8,9 @@ type RichTextReadEditorProps = {
     value: string;
 };
 
-const RichTextReadEditor = ({ value }: RichTextReadEditorProps) => {
+const RichTextReadEditor: React.FC<RichTextReadEditorProps> = ({
+    value,
+}: RichTextReadEditorProps): React.JSX.Element => {
     const ReactQuill = useMemo(() => dynamic(() => import("react-quill"), { ssr: false }), []);
     return <ReactQuill theme="snow" value={value} readOnly className="rich-text-read-editor" />;
 };
