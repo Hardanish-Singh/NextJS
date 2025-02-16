@@ -6,7 +6,7 @@ type Props = {
     children: string;
 };
 
-const NavLink = ({ href, children }: Props) => (
+const NavLink: React.FC<Props> = ({ href, children }: Props) => (
     <NextLink href={href} passHref legacyBehavior>
         <RadixLink>{children}</RadixLink>
     </NextLink>
