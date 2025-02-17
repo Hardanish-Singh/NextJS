@@ -11,7 +11,7 @@ type Props = {
     currentPage: number; // current page
 };
 
-const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
+const Pagination: React.FC<Props> = ({ itemCount, pageSize, currentPage }: Props) => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
