@@ -1,3 +1,3 @@
 # NextJS
 
-Repository for NextJS Projects and Topics
+Repository for NextJS Projects and Topics.
