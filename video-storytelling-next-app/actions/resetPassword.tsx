@@ -40,7 +40,7 @@ const resetPassword = async (email: string, password: string): Promise<resetPass
             message: "Password successfully resetted",
         };
     } catch (err) {
-        console.error("Error resetting password", err);
+        console.error("Error resetting the password", err);
         return {
             success: false,
             message: "Error resetting password",
