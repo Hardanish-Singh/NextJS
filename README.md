@@ -34,6 +34,7 @@ Navigate to any project directory and follow the standard Next.js setup:
 
 ```bash
 cd <project-folder>
+
 npm install
 # or
 yarn install
