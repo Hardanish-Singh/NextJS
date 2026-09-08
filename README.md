@@ -48,3 +48,7 @@ npm run dev
 
 - **Node.js**: Latest LTS recommended (required for Next.js 15).
 - **Database**: Most projects behave as monorepos with their own `prisma` setup. Ensure you have a configured database (e.g., MySQL, PostgreSQL) and update the `.env` file in each project folder accordingly.
+
+---
+
+_Repository for NextJS Projects and Topics_
