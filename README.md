@@ -40,7 +40,7 @@ npm install
 # or
 yarn install
 
-# Run development server
+# Run the development server
 npm run dev
 ```
 
